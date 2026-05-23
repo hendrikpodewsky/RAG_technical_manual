@@ -39,8 +39,8 @@ wissenssystem/
 │   ├── providers/                # konkrete Implementierungen
 │   │   ├── __init__.py
 │   │   ├── docling_parser.py
-│   │   ├── anthropic_provider.py     # LLM + Vision
-│   │   ├── voyage_embeddings.py
+│   │   ├── ollama_provider.py        # LLM + Vision
+│   │   ├── sentence_transformer_embeddings.py
 │   │   ├── qdrant_store.py
 │   │   └── local_blob_store.py
 │   │
@@ -341,8 +341,7 @@ Antwort + Quellen + Bilder (Streamlit zeigt alles)
 
 ```python
 class Settings(BaseSettings):
-    anthropic_api_key: SecretStr
-    voyage_api_key: SecretStr
+    ollama_url: str = "http://localhost:11434"
     qdrant_url: str = "http://localhost:6333"
     qdrant_api_key: SecretStr | None = None
 
@@ -351,9 +350,9 @@ class Settings(BaseSettings):
     blobs_dir: Path = Path("data/blobs")
     registry_db_path: Path = Path("data/registry.db")
 
-    llm_model: str = "claude-sonnet-4-6"
-    vision_model: str = "claude-sonnet-4-6"
-    embedding_model: str = "voyage-3"
+    llm_model: str = "qwen2.5:3b"
+    vision_model: str = "moondream2"
+    embedding_model: str = "paraphrase-multilingual-MiniLM-L12-v2"
 
     intent_confidence_threshold: float = 0.7
     machine_resolution_threshold: float = 0.75

@@ -34,9 +34,9 @@ Genaues Datenmodell und Interfaces siehe `ARCHITECTURE.md`. Kurz:
 |------------------|-------------------------------|--------------------------------|
 | Vektor-DB        | Qdrant (Docker)               | `VectorStore`                  |
 | Parser           | Docling                       | `DocumentParser`               |
-| LLM              | Anthropic API (Sonnet 4.5)    | `LLMProvider`                  |
-| Vision-LLM       | Anthropic API (Sonnet 4.5)    | `VisionProvider`               |
-| Embeddings       | Voyage AI (`voyage-3`)        | `EmbeddingProvider`            |
+| LLM              | Ollama (`qwen2.5:3b`)         | `LLMProvider`                  |
+| Vision-LLM       | Ollama (`moondream2`)         | `VisionProvider`               |
+| Embeddings       | sentence-transformers (`paraphrase-multilingual-MiniLM-L12-v2`) | `EmbeddingProvider` |
 | Bild-Storage     | Lokales Dateisystem           | `BlobStore`                    |
 | Web-UI           | Streamlit                     | —                              |
 | Sprache          | Python ≥ 3.11                 | —                              |
@@ -47,6 +47,11 @@ Genaues Datenmodell und Interfaces siehe `ARCHITECTURE.md`. Kurz:
 **Begründungen sind in dieser Datei dokumentiert; nicht erneut diskutieren.**
 On-Prem-Migration ist später ein Adapter-Wechsel, kein Rewrite — genau dafür
 gibt es die Interfaces.
+
+**Migrations-Pfad zu Anthropic API / Voyage AI:** Bei Bedarf reicht es,
+`OllamaLLMProvider` durch `AnthropicLLMProvider` und
+`SentenceTransformerEmbeddingProvider` durch `VoyageEmbeddingProvider`
+auszutauschen — keine Änderung am restlichen Code.
 
 ## 4 · Zentrale Begriffe (Glossar)
 

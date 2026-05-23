@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install *)",
+      "Bash(/opt/homebrew/bin/uv sync *)",
+      "Bash(/opt/homebrew/bin/uv run *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(docker compose *)",
+      "Read(//Applications/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(ls /usr/local/bin/docker /opt/homebrew/bin/docker ~/.docker/bin/docker 2>/dev/null; ls /Applications/ | grep -i docker)",
+      "Read(//opt/homebrew/bin/**)"
+    ]
+  }
+}

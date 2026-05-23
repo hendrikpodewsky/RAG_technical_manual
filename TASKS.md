@@ -66,25 +66,25 @@
 
 ## Phase 2 · Provider-Adapter (Tag 2–4)
 
-### Task 2.1 — Anthropic-Provider (LLM + Vision)
+### Task 2.1 — Ollama-Provider (LLM + Vision)
 - **Eingabe:** Interfaces, `ARCHITECTURE.md` §7.
-- **Ausgabe:** `providers/anthropic_provider.py` mit Klassen
-  `AnthropicLLMProvider` und `AnthropicVisionProvider`. Retry mit
-  Exponential Backoff bei `RateLimitError` (max 3 Versuche).
+- **Ausgabe:** `providers/ollama_provider.py` mit Klassen
+  `OllamaLLMProvider` und `OllamaVisionProvider`. Retry mit
+  Exponential Backoff bei Verbindungsfehlern (max 3 Versuche).
 - **Abnahme:** Beide Klassen erfüllen jeweiliges Protocol; Fehlerpfade
-  werfen domänenspezifische Exceptions (`ProviderError`, `RateLimitError`).
-- **Tests:** Unit-Test mit `respx` o.ä. — mock HTTP, prüfe Request-Format
+  werfen domänenspezifische Exceptions (`ProviderError`).
+- **Tests:** Unit-Test mit gemocktem `ollama`-Client — prüfe Request-Format
   und Response-Parsing.
-- **STOPP-und-frage:** Wenn `claude-sonnet-4-6` als Model-String nicht
-  funktioniert: Nutzer fragen, welches Modell stattdessen.
+- **STOPP-und-frage:** Wenn `qwen2.5:3b` oder `moondream2` nicht in Ollama
+  verfügbar sind: Nutzer fragen, welche Modelle stattdessen.
 
-### Task 2.2 — Voyage-Embeddings
-- **Eingabe:** Interface, Voyage SDK.
-- **Ausgabe:** `providers/voyage_embeddings.py`. Batch-Embedding bis
-  128 Texte/Call.
+### Task 2.2 — SentenceTransformer-Embeddings
+- **Eingabe:** Interface, `sentence-transformers`.
+- **Ausgabe:** `providers/sentence_transformer_embeddings.py`. Modell wird
+  beim Start einmalig geladen. Batch-Embedding bis 128 Texte/Call.
 - **Abnahme:** Erfüllt `EmbeddingProvider`-Protocol. Embedding-Dimension
   wird gegen Settings geprüft.
-- **Tests:** Unit-Test mit gemockter HTTP-Antwort.
+- **Tests:** Unit-Test mit synthetischen Texten (kein Mock nötig — läuft lokal).
 
 ### Task 2.3 — Qdrant-VectorStore
 - **Eingabe:** Interface, Qdrant-SDK.
