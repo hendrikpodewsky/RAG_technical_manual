@@ -75,7 +75,7 @@
   werfen domänenspezifische Exceptions (`ProviderError`, `RateLimitError`).
 - **Tests:** Unit-Test mit `respx` o.ä. — mock HTTP, prüfe Request-Format
   und Response-Parsing.
-- **STOPP-und-frage:** Wenn `claude-sonnet-4-5` als Model-String nicht
+- **STOPP-und-frage:** Wenn `claude-sonnet-4-6` als Model-String nicht
   funktioniert: Nutzer fragen, welches Modell stattdessen.
 
 ### Task 2.2 — Voyage-Embeddings

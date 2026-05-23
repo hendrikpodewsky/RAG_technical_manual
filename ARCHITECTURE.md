@@ -351,8 +351,8 @@ class Settings(BaseSettings):
     blobs_dir: Path = Path("data/blobs")
     registry_db_path: Path = Path("data/registry.db")
 
-    llm_model: str = "claude-sonnet-4-5"
-    vision_model: str = "claude-sonnet-4-5"
+    llm_model: str = "claude-sonnet-4-6"
+    vision_model: str = "claude-sonnet-4-6"
     embedding_model: str = "voyage-3"
 
     intent_confidence_threshold: float = 0.7
