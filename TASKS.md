@@ -123,7 +123,7 @@
 
 ## Phase 3 · Ingestion-Pipeline (Tag 4–6)
 
-### Task 3.1 — SafetyDetector
+### ✅ Task 3.1 — SafetyDetector
 - **Eingabe:** `PROJECT.md` §6.
 - **Ausgabe:** `ingestion/safety_detector.py`. Erkennt Blöcke, die mit
   GEFAHR/WARNUNG/VORSICHT/ACHTUNG/HINWEIS markiert sind. Regex-basiert
@@ -133,7 +133,7 @@
   korrektem `SafetyLevel`.
 - **Tests:** Unit-Test mit synthetischen Beispielen + UI-800-Fixture.
 
-### Task 3.2 — Chunker
+### ✅ Task 3.2 — Chunker
 - **Eingabe:** `ARCHITECTURE.md` §4.
 - **Ausgabe:** `ingestion/chunker.py`. Regeln:
   - Tabellen sind **immer** ein einziger Chunk (auch mehrseitige).

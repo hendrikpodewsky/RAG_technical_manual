@@ -1,0 +1,99 @@
+[
+  {
+    "path_id": "cfg__test__model__1__de__menu__0001",
+    "nodes": [
+      "Service"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0002",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0003",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Wärmepumpe"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0004",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Wärmepumpe",
+      "Geräuscharmer Betrieb"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0005",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Wärmepumpe",
+      "Mindestlaufzeit Verdichter"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0006",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Wärmepumpe",
+      "Abtauzyklus"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0007",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Heizkreis"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0008",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Heizkreis",
+      "Heizkurve"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0009",
+    "nodes": [
+      "Service",
+      "Anlageneinstellungen",
+      "Heizkreis",
+      "Raumtemperatur Soll"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0010",
+    "nodes": [
+      "Service",
+      "Fehlerliste"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0011",
+    "nodes": [
+      "Service",
+      "Fehlerliste",
+      "Aktuelle Fehler"
+    ]
+  },
+  {
+    "path_id": "cfg__test__model__1__de__menu__0012",
+    "nodes": [
+      "Service",
+      "Fehlerliste",
+      "Fehlerhistorie"
+    ]
+  }
+]
