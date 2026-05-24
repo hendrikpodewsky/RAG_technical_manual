@@ -321,14 +321,14 @@
 
 ## Phase 9 · Dokumentation & Übergabe (Tag 13–14)
 
-### Task 9.1 — README & Setup-Doku
+### ✅ Task 9.1 — README & Setup-Doku
 - **Ausgabe:** `README.md` mit:
   - Quickstart (`uv sync`, `docker compose up`, `cp .env.example .env`).
   - Wie ingest ich ein Dokument.
   - Wie starte ich die UI.
   - Wie laufe ich das Eval.
 
-### Task 9.2 — Architecture-Decision-Records
+### ✅ Task 9.2 — Architecture-Decision-Records
 - **Ausgabe:** `docs/adr/` mit kurzen ADRs für:
   - ADR-001: Qdrant statt pgvector
   - ADR-002: Docling statt Unstructured.io
@@ -336,7 +336,7 @@
   - ADR-004: Menüpfade als eigener Index
   - ADR-005: API-basiert statt lokales LLM (mit On-Prem-Migrationspfad)
 
-### Task 9.3 — Übergabe-Demo
+### ✅ Task 9.3 — Übergabe-Demo
 - **Ausgabe:** Skript für eine 15-Minuten-Demo:
   - Ingest live zeigen
   - 3 Eval-Fragen interaktiv beantworten lassen

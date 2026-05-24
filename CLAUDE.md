@@ -74,6 +74,6 @@ Dann **frage**. Nicht raten.
 - [x] Phase 6 — Agent
 - [x] Phase 7 — UI
 - [x] Phase 8 — Eval
-- [ ] Phase 9 — Dokumentation & Übergabe
+- [x] Phase 9 — Dokumentation & Übergabe
 
 (Bei Fortschritt diese Liste aktualisieren.)
