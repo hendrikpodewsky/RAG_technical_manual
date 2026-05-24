@@ -65,15 +65,15 @@ Dann **frage**. Nicht raten.
 
 ## Aktueller Stand
 
-- [ ] Phase 0 — Setup
-- [ ] Phase 1 — Domain & Interfaces
-- [ ] Phase 2 — Provider-Adapter
-- [ ] Phase 3 — Ingestion-Pipeline
-- [ ] Phase 4 — Maschinen-Registry
-- [ ] Phase 5 — Retrieval
-- [ ] Phase 6 — Agent
-- [ ] Phase 7 — UI
-- [ ] Phase 8 — Eval
+- [x] Phase 0 — Setup
+- [x] Phase 1 — Domain & Interfaces
+- [x] Phase 2 — Provider-Adapter
+- [x] Phase 3 — Ingestion-Pipeline
+- [x] Phase 4 — Maschinen-Registry
+- [x] Phase 5 — Retrieval
+- [x] Phase 6 — Agent
+- [x] Phase 7 — UI
+- [x] Phase 8 — Eval
 - [ ] Phase 9 — Dokumentation & Übergabe
 
 (Bei Fortschritt diese Liste aktualisieren.)

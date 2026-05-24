@@ -296,7 +296,7 @@
 
 ## Phase 8 · Eval (Tag 12–13)
 
-### Task 8.1 — Eval-Set erstellen
+### ✅ Task 8.1 — Eval-Set erstellen
 - **Eingabe:** —
 - **Ausgabe:** `eval/questions.yaml` mit ≥ 20 Fragen, je mit:
   - `question`
@@ -309,7 +309,7 @@
 - **STOPP-und-frage:** Erste 5 Fragen mit Nutzer durchgehen, bevor weitere
   geschrieben werden.
 
-### Task 8.2 — Eval-Runner
+### ✅ Task 8.2 — Eval-Runner
 - **Eingabe:** Eval-Set.
 - **Ausgabe:** `eval/run_eval.py`. Iteriert über Fragen, ruft
   Orchestrator, prüft erwartete Stichworte/Bilder/Pfade. Output:

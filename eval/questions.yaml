@@ -64,3 +64,153 @@ questions:
     expected_safety_quote: null
     expected_menu_path: null
     should_be_answerable: false
+
+  # ── Sicherheit (weitere) ────────────────────────────────────────────────────
+
+  - id: q06
+    question: "Welche Schutzmaßnahmen gelten beim Umgang mit dem Kältemittel?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Kältemittel"
+    expected_safety_quote: "WARNUNG"
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q07
+    question: "Was muss ich beachten, bevor ich Wartungsarbeiten am Gerät durchführe?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Wartung"
+    expected_safety_quote: "GEFAHR"
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q16
+    question: "Wie schütze ich die Anlage vor dem Einfrieren?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Frostschutz"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q18
+    question: "Was darf ich nicht in der Nähe der Außeneinheit aufstellen?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Außeneinheit"
+    expected_safety_quote: "HINWEIS"
+    expected_menu_path: null
+    should_be_answerable: true
+
+  # ── Menünavigation (weitere) ────────────────────────────────────────────────
+
+  - id: q08
+    question: "Wo stelle ich die Warmwasser-Solltemperatur ein?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Warmwasser"
+      - "Solltemperatur"
+    expected_safety_quote: null
+    expected_menu_path:
+      - "Service"
+      - "Anlageneinstellungen"
+      - "Warmwasser"
+    should_be_answerable: true
+
+  - id: q09
+    question: "Wie aktiviere ich den Urlaubsbetrieb?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Urlaubsbetrieb"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q17
+    question: "Wo passe ich die Heizkurve an?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Heizkurve"
+    expected_safety_quote: null
+    expected_menu_path:
+      - "Service"
+      - "Anlageneinstellungen"
+      - "Heizkreis"
+    should_be_answerable: true
+
+  # ── Lookup / Technische Daten (weitere) ─────────────────────────────────────
+
+  - id: q11
+    question: "Welches Kältemittel wird in der Wärmepumpe eingesetzt?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Kältemittel"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q12
+    question: "Wie hoch ist der Schallleistungspegel der Außeneinheit?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "dB"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q13
+    question: "Welche elektrische Absicherung ist für das Gerät erforderlich?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Absicherung"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  # ── Howto / Bedienung ──────────────────────────────────────────────────────
+
+  - id: q10
+    question: "Wie wechsle ich den Betriebsmodus von Heizen auf Kühlen?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Betriebsmodus"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q14
+    question: "Wie führe ich einen manuellen Entfrostungsvorgang durch?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Entfrostung"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q15
+    question: "Was soll ich tun, wenn das Gerät nach einem Stromausfall nicht anläuft?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Stromausfall"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  # ── Nicht beantwortbar (weitere) ────────────────────────────────────────────
+
+  - id: q19
+    question: "Wie verbinde ich die Wärmepumpe mit der Bosch-App?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics: []
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: false
+
+  - id: q20
+    question: "Wie integriere ich das Gerät in ein KNX-Bussystem?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics: []
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: false
