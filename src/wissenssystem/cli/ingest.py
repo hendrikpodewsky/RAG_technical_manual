@@ -40,28 +40,29 @@ def main() -> None:
     print("Initialising providers…")
     parser_adapter = DoclingParserAdapter()
     blob_store = LocalBlobStore(cfg.blobs_dir)
-    llm = OllamaLLMProvider(model=cfg.llm_model, base_url=cfg.ollama_url)
-    vision = None if args.no_vision else OllamaVisionProvider(
-        model=cfg.vision_model, base_url=cfg.ollama_url
+    llm = OllamaLLMProvider(model=cfg.llm_model, ollama_url=cfg.ollama_url)
+    vision = (
+        None
+        if args.no_vision
+        else OllamaVisionProvider(model=cfg.vision_model, ollama_url=cfg.ollama_url)
     )
 
-    # Qdrant vector store — try real, fall back to in-memory
+    # Qdrant vector store — try remote server, fall back to local file-based mode
+    from qdrant_client import QdrantClient
+
+    from wissenssystem.providers.qdrant_store import QdrantVectorStore
+
     try:
-        from qdrant_client import QdrantClient
-
-        from wissenssystem.providers.qdrant_store import QdrantVectorStore
-
         client = QdrantClient(url=cfg.qdrant_url)
+        client.get_collections()  # ping — raises if server not reachable
         vector_store = QdrantVectorStore(client)
         print(f"Vector store: Qdrant at {cfg.qdrant_url}")
-    except Exception as exc:  # noqa: BLE001
-        from qdrant_client import QdrantClient
-
-        from wissenssystem.providers.qdrant_store import QdrantVectorStore
-
-        client = QdrantClient(":memory:")
+    except Exception:  # noqa: BLE001
+        qdrant_path = cfg.data_dir / "qdrant_storage"
+        qdrant_path.mkdir(parents=True, exist_ok=True)
+        client = QdrantClient(path=str(qdrant_path))
         vector_store = QdrantVectorStore(client)
-        print(f"Vector store: Qdrant in-memory (Qdrant server unavailable: {exc})")
+        print(f"Vector store: Qdrant local ({qdrant_path})")
 
     pipeline = IngestionPipeline(
         parser=parser_adapter,

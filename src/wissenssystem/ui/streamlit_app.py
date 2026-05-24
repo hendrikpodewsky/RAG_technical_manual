@@ -39,16 +39,18 @@ def _load_resources():
     cfg = get_settings()
 
     embedder = SentenceTransformerEmbeddingProvider(cfg.embedding_model)
-    llm = OllamaLLMProvider(model=cfg.llm_model, base_url=cfg.ollama_url)
+    llm = OllamaLLMProvider(model=cfg.llm_model, ollama_url=cfg.ollama_url)
     blob_store = LocalBlobStore(cfg.blobs_dir)
 
+    from qdrant_client import QdrantClient
+
     try:
-        from qdrant_client import QdrantClient
         client = QdrantClient(url=cfg.qdrant_url)
         client.get_collections()  # ping
     except Exception:
-        from qdrant_client import QdrantClient
-        client = QdrantClient(":memory:")
+        qdrant_path = cfg.data_dir / "qdrant_storage"
+        qdrant_path.mkdir(parents=True, exist_ok=True)
+        client = QdrantClient(path=str(qdrant_path))
 
     vector_store = QdrantVectorStore(client)
     registry = MachineRegistry(cfg.registry_db_path)
@@ -80,6 +82,7 @@ def _render_image_tag(image_id: str, blob_store: LocalBlobStore) -> str:
 def _replace_image_refs(text: str, blob_store: LocalBlobStore) -> str:
     def replace(match):
         return _render_image_tag(match.group(1), blob_store)
+
     return re.sub(r"\[BILD:([^\]]+)\]", replace, text)
 
 

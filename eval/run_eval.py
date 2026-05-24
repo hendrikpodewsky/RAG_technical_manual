@@ -72,17 +72,17 @@ def _check(result: AnswerResult, question: dict) -> tuple[bool, list[str]]:
 
 def _build_orchestrator(cfg, registry) -> Orchestrator:
     embedder = SentenceTransformerEmbeddingProvider(cfg.embedding_model)
-    llm = OllamaLLMProvider(model=cfg.llm_model, base_url=cfg.ollama_url)
+    llm = OllamaLLMProvider(model=cfg.llm_model, ollama_url=cfg.ollama_url)
+
+    from qdrant_client import QdrantClient
 
     try:
-        from qdrant_client import QdrantClient
-
         client = QdrantClient(url=cfg.qdrant_url)
         client.get_collections()
     except Exception:
-        from qdrant_client import QdrantClient
-
-        client = QdrantClient(":memory:")
+        qdrant_path = cfg.data_dir / "qdrant_storage"
+        qdrant_path.mkdir(parents=True, exist_ok=True)
+        client = QdrantClient(path=str(qdrant_path))
 
     vector_store = QdrantVectorStore(client)
 

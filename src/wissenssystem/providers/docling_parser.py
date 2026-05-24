@@ -1,7 +1,11 @@
 import io
 from pathlib import Path
 
-from docling.datamodel.pipeline_options import PdfPipelineOptions
+from docling.datamodel.pipeline_options import (
+    AcceleratorDevice,
+    AcceleratorOptions,
+    PdfPipelineOptions,
+)
 from docling.document_converter import DocumentConverter
 from docling_core.types.doc import (
     DocItemLabel,
@@ -19,6 +23,7 @@ def _build_converter() -> DocumentConverter:
         do_table_structure=True,
         generate_picture_images=True,
         generate_page_images=False,
+        accelerator_options=AcceleratorOptions(device=AcceleratorDevice.CPU),
     )
     from docling.document_converter import PdfFormatOption
 
@@ -73,7 +78,7 @@ class DoclingParserAdapter:
                 )
 
             elif isinstance(item, TableItem):
-                content = item.export_to_markdown()
+                content = item.export_to_markdown(doc)
                 blocks.append(
                     ParsedBlock(
                         block_type="table",
