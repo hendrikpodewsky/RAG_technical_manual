@@ -11,7 +11,7 @@ def test_default_urls():
 def test_default_models():
     s = Settings(_env_file=None)
     assert s.llm_model == "qwen2.5:3b"
-    assert s.vision_model == "moondream2"
+    assert s.vision_model == "moondream"
     assert s.embedding_model == "paraphrase-multilingual-MiniLM-L12-v2"
 
 

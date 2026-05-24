@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     registry_db_path: Path = Path("data/registry.db")
 
     llm_model: str = "qwen2.5:3b"
-    vision_model: str = "moondream2"
+    vision_model: str = "moondream"
     embedding_model: str = "paraphrase-multilingual-MiniLM-L12-v2"
 
     intent_confidence_threshold: float = 0.7
