@@ -58,7 +58,11 @@ def _load_resources():
     orch = Orchestrator(
         intent_classifier=IntentClassifier(llm),
         machine_resolver=MachineResolver(registry, llm_provider=llm),
-        hybrid_search=HybridSearch(vector_store, embedder, top_k=cfg.retrieval_top_k),
+        hybrid_search=HybridSearch(
+            vector_store, embedder,
+            top_k=cfg.retrieval_top_k,
+            bm25_dir=cfg.data_dir / "bm25",
+        ),
         answer_generator=AnswerGenerator(llm),
         reranker=Reranker(llm_provider=llm),
         menu_path_search=MenuPathSearch(vector_store, embedder),

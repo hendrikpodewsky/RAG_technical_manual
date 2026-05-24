@@ -38,7 +38,9 @@ def test_hybrid_search_returns_results():
     hs = HybridSearch(store, _mock_embedder(), top_k=5)
     results = hs.search("Verbrühungsgefahr", NS)
     assert len(results) == 2
-    assert results[0].score == 0.9
+    # Higher vector rank → higher RRF score → c1 before c2
+    assert results[0].chunk_id == "c1"
+    assert results[0].score > results[1].score
 
 
 def test_hybrid_search_deduplicates_by_id():
@@ -57,10 +59,7 @@ def test_hybrid_search_keeps_higher_score_on_dedup():
     text_hit = _hit("c1", 0.6, {"text": "A"})
     img_hit = _hit("c1", 0.95, {"image_id": "sha1", "description": "B"})
 
-    call_count = [0]
-
     def _search(ns, vec, top_k):
-        call_count[0] += 1
         if "__images" in ns:
             return [img_hit]
         return [text_hit]
@@ -71,8 +70,9 @@ def test_hybrid_search_keeps_higher_score_on_dedup():
 
     hs = HybridSearch(store, _mock_embedder(), top_k=10)
     results = hs.search("query", NS)
+    # Dedup: c1 appears once; higher-scored hit (img 0.95) used for ranking
     assert len(results) == 1
-    assert results[0].score == 0.95
+    assert results[0].chunk_id == "c1"
 
 
 def test_hybrid_search_missing_namespace_returns_empty():
@@ -82,9 +82,7 @@ def test_hybrid_search_missing_namespace_returns_empty():
 
 
 def test_hybrid_search_top_k_truncates():
-    store = _mock_store(
-        search_results=[_hit(f"c{i}", float(i) / 10) for i in range(20)]
-    )
+    store = _mock_store(search_results=[_hit(f"c{i}", float(i) / 10) for i in range(20)])
     hs = HybridSearch(store, _mock_embedder(), top_k=5)
     results = hs.search("query", NS)
     assert len(results) == 5

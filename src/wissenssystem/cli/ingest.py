@@ -64,6 +64,9 @@ def main() -> None:
         vector_store = QdrantVectorStore(client)
         print(f"Vector store: Qdrant local ({qdrant_path})")
 
+    bm25_dir = cfg.data_dir / "bm25"
+    bm25_dir.mkdir(parents=True, exist_ok=True)
+
     pipeline = IngestionPipeline(
         parser=parser_adapter,
         embedder=embedder,
@@ -71,6 +74,7 @@ def main() -> None:
         blob_store=blob_store,
         vision_provider=vision,
         llm_provider=llm,
+        bm25_dir=bm25_dir,
     )
 
     print(f"\nIngesting {args.pdf_path} → {args.namespace}")

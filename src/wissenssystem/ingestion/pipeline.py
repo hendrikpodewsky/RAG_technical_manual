@@ -11,6 +11,7 @@ from wissenssystem.interfaces.embedding_provider import EmbeddingProvider
 from wissenssystem.interfaces.llm_provider import LLMProvider
 from wissenssystem.interfaces.vector_store import VectorItem, VectorStore
 from wissenssystem.interfaces.vision_provider import VisionProvider
+from wissenssystem.retrieval.bm25_index import BM25Index
 
 
 class IngestionPipeline:
@@ -34,6 +35,7 @@ class IngestionPipeline:
         blob_store: BlobStore,
         vision_provider: VisionProvider | None = None,
         llm_provider: LLMProvider | None = None,
+        bm25_dir: Path | None = None,
     ) -> None:
         self._parser = parser
         self._embedder = embedder
@@ -41,6 +43,7 @@ class IngestionPipeline:
         self._blob_store = blob_store
         self._vision = vision_provider
         self._llm = llm_provider
+        self._bm25_dir = bm25_dir
 
     def ingest(self, pdf_path: Path, namespace: str) -> IngestReport:
         doc_id = f"{namespace}__{pdf_path.stem}"
@@ -61,13 +64,9 @@ class IngestionPipeline:
         safety_count = sum(1 for c in text_chunks if c.safety_level is not None)
 
         # Embed text chunks and image descriptions
-        text_vectors = (
-            self._embedder.embed([c.text for c in text_chunks]) if text_chunks else []
-        )
+        text_vectors = self._embedder.embed([c.text for c in text_chunks]) if text_chunks else []
         image_vectors = (
-            self._embedder.embed([c.description for c in image_chunks])
-            if image_chunks
-            else []
+            self._embedder.embed([c.description for c in image_chunks]) if image_chunks else []
         )
 
         # Build vector items
@@ -106,6 +105,15 @@ class IngestionPipeline:
             menu_ns = f"{namespace}__menupaths"
             self._vector_store.create_namespace(menu_ns, dim)
             self._vector_store.upsert(menu_ns, menu_items)
+
+        # Build and persist BM25 index for keyword retrieval
+        if self._bm25_dir is not None and text_chunks:
+            bm25 = BM25Index()
+            bm25.build(
+                texts=[c.text for c in text_chunks],
+                chunk_ids=[c.chunk_id for c in text_chunks],
+            )
+            bm25.save(self._bm25_dir / f"{namespace}.pkl")
 
         return IngestReport(
             doc_id=doc_id,
