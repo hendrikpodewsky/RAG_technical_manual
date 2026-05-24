@@ -1,0 +1,19 @@
+# PoC machine registry seed
+# Add machines here; run `python -m wissenssystem.cli.seed_registry` to load.
+
+machines:
+  - name: "Wärmepumpe Halle 1"
+    aliases:
+      - "UI 800"
+      - "WP Halle 1"
+      - "Bosch WP"
+    location: "Halle 1"
+    responsible: "Technik"
+    configuration:
+      namespace: "cfg__bosch__ui800__nf87-02__de"
+      manufacturer: "Bosch"
+      model_family: "UI 800"
+      indoor_unit: null
+      outdoor_unit: null
+      software_version: "NF87.02"
+      country: "DE"
