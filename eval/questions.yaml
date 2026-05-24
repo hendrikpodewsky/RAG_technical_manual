@@ -1,0 +1,66 @@
+# Eval-Set für das Maschinen-Wissenssystem (UI 800 / Bosch Wärmepumpe)
+# Format: question, expected_machine, expected_topics, expected_safety_quote,
+#         expected_menu_path, should_be_answerable
+#
+# HINWEIS: Erste 5 Fragen wurden mit dem Nutzer abgestimmt (Task 8.1).
+# Die weiteren 15 folgen danach.
+
+questions:
+
+  # ── Sicherheit ─────────────────────────────────────────────────────────────
+
+  - id: q01
+    question: "Welche Gefahren bestehen beim Öffnen des Geräts?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Hochspannung"
+      - "elektrisch"
+    expected_safety_quote: "GEFAHR"
+    expected_menu_path: null
+    should_be_answerable: true
+
+  - id: q02
+    question: "Was passiert wenn ich das Gerät mit dem Hochdruckreiniger reinige?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Reinigen"
+    expected_safety_quote: "ACHTUNG"
+    expected_menu_path: null
+    should_be_answerable: true
+
+  # ── Menünavigation ─────────────────────────────────────────────────────────
+
+  - id: q03
+    question: "Wo im Menü stelle ich den geräuscharmen Betrieb ein?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "Geräuscharmer Betrieb"
+    expected_safety_quote: null
+    expected_menu_path:
+      - "Service"
+      - "Anlageneinstellungen"
+      - "Wärmepumpe"
+      - "Geräuscharmer Betrieb"
+    should_be_answerable: true
+
+  # ── Technische Daten ────────────────────────────────────────────────────────
+
+  - id: q04
+    question: "Wie hoch ist der maximale Betriebsdruck des Kältemittels?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics:
+      - "bar"
+      - "Druck"
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: true
+
+  # ── Nicht beantwortbar ─────────────────────────────────────────────────────
+
+  - id: q05
+    question: "Wie programmiere ich eine WLAN-Verbindung?"
+    expected_machine: "cfg__bosch__ui800__nf87-02__de"
+    expected_topics: []
+    expected_safety_quote: null
+    expected_menu_path: null
+    should_be_answerable: false
