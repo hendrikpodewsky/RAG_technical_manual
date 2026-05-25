@@ -84,7 +84,7 @@ def test_short_blocks_merged():
     assert "Zweiter" in chunks[0].text
 
 
-def test_heading_flushes_pending():
+def test_heading_creates_parent_chunk():
     chunker = Chunker("doc1")
     blocks = [
         _block("Text in Abschnitt 1."),
@@ -92,8 +92,59 @@ def test_heading_flushes_pending():
         _block("Text in Abschnitt 2."),
     ]
     chunks = chunker.chunk(blocks)
-    texts = [c.text for c in chunks]
-    assert not any("Unterabschnitt" in t for t in texts)
+    # Heading becomes a "section" parent chunk
+    section_chunks = [c for c in chunks if c.chunk_type == "section"]
+    assert len(section_chunks) == 1
+    assert "Unterabschnitt" in section_chunks[0].text
+    assert section_chunks[0].section_id == "4.1"
+    assert section_chunks[0].parent_chunk_id is None
+    # Content after the heading is a child chunk referencing the parent
+    child_chunks = [c for c in chunks if c.parent_chunk_id == section_chunks[0].chunk_id]
+    assert len(child_chunks) == 1
+    assert "Abschnitt 2" in child_chunks[0].text
+    # Child chunk text is prefixed with the heading
+    assert "Unterabschnitt" in child_chunks[0].text
+
+
+def test_child_chunk_prefixed_with_heading():
+    chunker = Chunker("doc1")
+    blocks = [
+        _block("3.2 Warmwasserbereitung", block_type="heading"),
+        _block("Die Warmwasserbereitung erfolgt automatisch."),
+    ]
+    chunks = chunker.chunk(blocks)
+    parent = next(c for c in chunks if c.chunk_type == "section")
+    child = next(c for c in chunks if c.parent_chunk_id == parent.chunk_id)
+    assert child.text.startswith("3.2 Warmwasserbereitung")
+    assert "automatisch" in child.text
+
+
+def test_table_gets_parent_chunk_id():
+    chunker = Chunker("doc1")
+    blocks = [
+        _block("5.1 Technische Daten", block_type="heading"),
+        _table_block("| Param | Wert |\n| Druck | 30 bar |"),
+    ]
+    chunks = chunker.chunk(blocks)
+    parent = next(c for c in chunks if c.chunk_type == "section")
+    table = next(c for c in chunks if c.chunk_type == "table")
+    assert table.parent_chunk_id == parent.chunk_id
+
+
+def test_no_merge_across_sections():
+    chunker = Chunker("doc1")
+    tiny = "OK"
+    blocks = [
+        _block("1.0 Erster Abschnitt", block_type="heading"),
+        _block("W" * 500),
+        _block("2.0 Zweiter Abschnitt", block_type="heading"),
+        _block(tiny),
+    ]
+    chunks = chunker.chunk(blocks)
+    # The tiny block in section 2 must NOT merge into the prose chunk of section 1
+    section2 = next(c for c in chunks if c.chunk_type == "section" and "Zweiter" in c.text)
+    child2 = [c for c in chunks if c.parent_chunk_id == section2.chunk_id]
+    assert any(tiny in c.text for c in child2)
 
 
 def test_max_token_limit_splits_chunk():

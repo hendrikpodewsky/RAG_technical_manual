@@ -16,6 +16,9 @@ data/sources/
 data/blobs/
 data/registry.db
 data/qdrant_storage/
+data/qdrant/
+data/bm25/
+data/debug_logs/
 
 # Environment
 .env

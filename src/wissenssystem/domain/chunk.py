@@ -12,10 +12,13 @@ class TextChunk(BaseModel):
     chunk_id: str
     text: str
     source_ref: SourceRef
-    chunk_type: Literal["prose", "table", "list", "safety_notice"]
+    chunk_type: Literal["prose", "table", "list", "safety_notice", "section"]
     safety_level: SafetyLevel | None
     country_restriction: list[str] | None
     related_image_ids: list[str]
+    parent_chunk_id: str | None = None
+    section_id: str | None = None
+    section_title: str | None = None
 
     model_config = ConfigDict(frozen=True)
 

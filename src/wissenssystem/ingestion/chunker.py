@@ -1,3 +1,5 @@
+import re
+
 from wissenssystem.domain.chunk import TextChunk
 from wissenssystem.domain.safety import SafetyLevel
 from wissenssystem.domain.source import SourceRef
@@ -8,10 +10,18 @@ _MIN_TOKENS = 100
 _MAX_LIST_TOKENS = 1000
 
 _CHARS_PER_TOKEN = 4
+_SECTION_HEADING_RE = re.compile(r"^(\d+(?:\.\d+)*)\s+(.*)")
 
 
 def _token_estimate(text: str) -> int:
     return max(1, len(text) // _CHARS_PER_TOKEN)
+
+
+def _parse_section_heading(text: str) -> tuple[str | None, str | None]:
+    m = _SECTION_HEADING_RE.match(text.strip())
+    if m:
+        return m.group(1), m.group(2).strip()
+    return None, text.strip() or None
 
 
 def _make_chunk(
@@ -21,6 +31,9 @@ def _make_chunk(
     chunk_type: str,
     safety_level: SafetyLevel | None = None,
     country_restriction: list[str] | None = None,
+    parent_chunk_id: str | None = None,
+    section_id: str | None = None,
+    section_title: str | None = None,
 ) -> TextChunk:
     return TextChunk(
         chunk_id=chunk_id,
@@ -30,6 +43,9 @@ def _make_chunk(
         safety_level=safety_level,
         country_restriction=country_restriction,
         related_image_ids=[],
+        parent_chunk_id=parent_chunk_id,
+        section_id=section_id,
+        section_title=section_title,
     )
 
 
@@ -38,13 +54,19 @@ def _source_ref(block: ParsedBlock, doc_id: str) -> SourceRef:
 
 
 class Chunker:
-    """Converts parsed document blocks into semantically coherent TextChunks.
+    """Hierarchical chunker: section headings become parent chunks, content
+    within sections becomes child chunks.
 
     Rules:
-    - Tables are always one chunk, never split.
-    - Lists are kept together when < 1000 tokens; split on section boundary otherwise.
-    - Prose is split at heading boundaries; max 1500 tokens, min 100 tokens.
-    - Short chunks (< 100 tokens) are merged into the preceding chunk.
+    - Heading → parent chunk (chunk_type="section"), text = heading only.
+    - Content within a section → child chunks with parent_chunk_id set.
+      Child chunk text is prefixed with the section heading for better
+      embedding quality.
+    - Tables → single child chunk, never split.
+    - Short child chunks (< _MIN_TOKENS) merged into preceding child of the
+      same section; cross-section merges and merges into table/safety_notice
+      chunks are forbidden.
+    - Max child chunk size: _MAX_TOKENS tokens.
     """
 
     def __init__(self, doc_id: str) -> None:
@@ -56,7 +78,14 @@ class Chunker:
         return f"{self._doc_id}_{self._counter:04d}"
 
     def chunk(self, blocks: list[ParsedBlock]) -> list[TextChunk]:
+        from wissenssystem.ingestion.safety_detector import detect_from_text
+
         chunks: list[TextChunk] = []
+        current_parent_id: str | None = None
+        current_section_id: str | None = None
+        current_section_title: str | None = None
+        current_heading: str | None = None
+
         pending_text: list[str] = []
         pending_ref: SourceRef | None = None
         pending_safety: SafetyLevel | None = None
@@ -66,26 +95,41 @@ class Chunker:
             if not pending_text or pending_ref is None:
                 return
             combined = "\n\n".join(pending_text)
-            if _token_estimate(combined) < _MIN_TOKENS and chunks and pending_safety is None:
+            # Prefix with section heading so the embedding captures section context.
+            full_text = f"{current_heading}\n\n{combined}" if current_heading else combined
+
+            if (
+                _token_estimate(combined) < _MIN_TOKENS
+                and pending_safety is None
+                and chunks
+                and chunks[-1].chunk_type in ("prose", "list")
+                and chunks[-1].parent_chunk_id == current_parent_id
+            ):
+                # Merge raw content into preceding child of the same section.
                 last = chunks[-1]
-                merged_text = last.text + "\n\n" + combined
                 chunks[-1] = _make_chunk(
                     last.chunk_id,
-                    merged_text,
+                    last.text + "\n\n" + combined,
                     last.source_ref,
                     last.chunk_type,
-                    last.safety_level or pending_safety,
+                    last.safety_level,
                     last.country_restriction,
+                    parent_chunk_id=last.parent_chunk_id,
+                    section_id=last.section_id,
+                    section_title=last.section_title,
                 )
             else:
                 chunk_type = "safety_notice" if pending_safety else "prose"
                 chunks.append(
                     _make_chunk(
                         self._next_id(),
-                        combined,
+                        full_text,
                         pending_ref,
                         chunk_type,
                         pending_safety,
+                        parent_chunk_id=current_parent_id,
+                        section_id=current_section_id,
+                        section_title=current_section_title,
                     )
                 )
             pending_text = []
@@ -95,27 +139,47 @@ class Chunker:
         for block in blocks:
             ref = _source_ref(block, self._doc_id)
 
+            if block.block_type == "heading":
+                flush_pending()
+                heading_text = block.content.strip()
+                section_id, section_title = _parse_section_heading(heading_text)
+                parent = _make_chunk(
+                    self._next_id(),
+                    heading_text,
+                    ref,
+                    "section",
+                    section_id=section_id,
+                    section_title=section_title,
+                )
+                chunks.append(parent)
+                current_parent_id = parent.chunk_id
+                current_section_id = section_id
+                current_section_title = section_title
+                current_heading = heading_text
+                continue
+
             if block.block_type == "table":
                 flush_pending()
                 chunks.append(
-                    _make_chunk(self._next_id(), block.content, ref, "table")
+                    _make_chunk(
+                        self._next_id(),
+                        block.content,
+                        ref,
+                        "table",
+                        parent_chunk_id=current_parent_id,
+                        section_id=current_section_id,
+                        section_title=current_section_title,
+                    )
                 )
-                continue
-
-            if block.block_type == "heading":
-                flush_pending()
                 continue
 
             if block.block_type == "image":
                 flush_pending()
                 continue
 
-            # text block
             text = block.content.strip()
             if not text:
                 continue
-
-            from wissenssystem.ingestion.safety_detector import detect_from_text
 
             safety_notice = detect_from_text(text)
             block_safety = safety_notice.level if safety_notice else None
@@ -127,21 +191,26 @@ class Chunker:
                 flush_pending()
                 pending_ref = ref
 
-            if _token_estimate(text) >= _MAX_TOKENS:
+            heading_tokens = _token_estimate(current_heading) if current_heading else 0
+            if _token_estimate(text) + heading_tokens >= _MAX_TOKENS:
                 flush_pending()
+                full_text = f"{current_heading}\n\n{text}" if current_heading else text
                 chunks.append(
                     _make_chunk(
                         self._next_id(),
-                        text,
+                        full_text,
                         ref,
                         "safety_notice" if block_safety else "prose",
                         block_safety,
+                        parent_chunk_id=current_parent_id,
+                        section_id=current_section_id,
+                        section_title=current_section_title,
                     )
                 )
                 continue
 
             would_be = "\n\n".join([*pending_text, text])
-            if pending_text and _token_estimate(would_be) > _MAX_TOKENS:
+            if pending_text and _token_estimate(would_be) + heading_tokens > _MAX_TOKENS:
                 flush_pending()
                 pending_ref = ref
 
@@ -181,7 +250,5 @@ class Chunker:
                 current_ref = _source_ref(block, self._doc_id)
             current.append(text)
         if current:
-            chunks.append(
-                _make_chunk(self._next_id(), "\n".join(current), current_ref, "list")
-            )
+            chunks.append(_make_chunk(self._next_id(), "\n".join(current), current_ref, "list"))
         return chunks

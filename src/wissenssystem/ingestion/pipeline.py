@@ -63,8 +63,13 @@ class IngestionPipeline:
 
         safety_count = sum(1 for c in text_chunks if c.safety_level is not None)
 
+        # Section chunks are hierarchy anchors; child chunks already carry the
+        # heading as a text prefix, so section chunks add no retrieval signal
+        # and only dilute the vector space.
+        indexable_chunks = [c for c in text_chunks if c.chunk_type != "section"]
+
         # Embed text chunks and image descriptions
-        text_vectors = self._embedder.embed([c.text for c in text_chunks]) if text_chunks else []
+        text_vectors = self._embedder.embed([c.text for c in indexable_chunks]) if indexable_chunks else []
         image_vectors = (
             self._embedder.embed([c.description for c in image_chunks]) if image_chunks else []
         )
@@ -72,7 +77,7 @@ class IngestionPipeline:
         # Build vector items
         items: list[VectorItem] = [
             VectorItem(id=chunk.chunk_id, vector=vec, payload=chunk.model_dump())
-            for chunk, vec in zip(text_chunks, text_vectors)
+            for chunk, vec in zip(indexable_chunks, text_vectors)
         ]
         items += [
             VectorItem(id=chunk.chunk_id, vector=vec, payload=chunk.model_dump())
@@ -107,11 +112,11 @@ class IngestionPipeline:
             self._vector_store.upsert(menu_ns, menu_items)
 
         # Build and persist BM25 index for keyword retrieval
-        if self._bm25_dir is not None and text_chunks:
+        if self._bm25_dir is not None and indexable_chunks:
             bm25 = BM25Index()
             bm25.build(
-                texts=[c.text for c in text_chunks],
-                chunk_ids=[c.chunk_id for c in text_chunks],
+                texts=[c.text for c in indexable_chunks],
+                chunk_ids=[c.chunk_id for c in indexable_chunks],
             )
             bm25.save(self._bm25_dir / f"{namespace}.pkl")
 

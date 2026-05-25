@@ -6,6 +6,34 @@ from wissenssystem.retrieval.menu_path_search import MenuPathHit
 
 _PROMPT_PATH = Path(__file__).parent.parent.parent.parent / "prompts" / "answer_generation.md"
 _NO_INFO = "Mir liegt dazu keine Information vor."
+_NO_INFO_LOWER = _NO_INFO.lower()
+
+# Phrases small models use when admitting they lack the information but still
+# generating surrounding text — treat the whole answer as no-info.
+_ADMISSION_PHRASES = (
+    "keine spezifischen anweisungen",
+    "nicht erwähnt, wie",
+    "nicht beschrieben, wie",
+    "empfehle ich, sich an den hersteller",
+    "wenden sie sich an den hersteller",
+    "wenden sie sich direkt an",
+    "empfehlenswert, sich direkt an",
+)
+
+
+def _strip_trailing_no_info(answer: str) -> str:
+    """Remove trailing no-info disclaimers that small models append after real content."""
+    stripped = answer.strip()
+    lower = stripped.lower()
+    # If the model admits it lacks the info but wraps it in filler text, collapse to no-info
+    if any(phrase in lower for phrase in _ADMISSION_PHRASES):
+        return _NO_INFO
+    idx = lower.rfind(_NO_INFO_LOWER)
+    if idx <= 0:
+        return stripped
+    # Only strip if there is substantive content before the phrase
+    prefix = stripped[:idx].strip()
+    return prefix if prefix else stripped
 
 
 def _load_prompt() -> str:
@@ -18,7 +46,11 @@ def _format_chunks(results: list[SearchResult]) -> str:
         text = r.payload.get("text") or r.payload.get("description", "")
         source = r.payload.get("source_ref", {})
         page = source.get("page", "?") if isinstance(source, dict) else "?"
-        parts.append(f"[Passage {i} — Seite {page}]\n{text}")
+        section_title = r.payload.get("section_title")
+        header = f"Passage {i} — Seite {page}"
+        if section_title:
+            header += f" — Abschnitt: {section_title}"
+        parts.append(f"[{header}]\n{text}")
     return "\n\n---\n\n".join(parts)
 
 
@@ -59,4 +91,5 @@ class AnswerGenerator:
             temperature=0.0,
             max_tokens=1024,
         )
-        return response.content.strip() or _NO_INFO
+        answer = response.content.strip() or _NO_INFO
+        return _strip_trailing_no_info(answer)
