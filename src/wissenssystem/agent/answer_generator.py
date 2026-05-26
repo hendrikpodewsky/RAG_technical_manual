@@ -50,6 +50,8 @@ def _format_chunks(results: list[SearchResult]) -> str:
         header = f"Passage {i} — Seite {page}"
         if section_title:
             header += f" — Abschnitt: {section_title}"
+        if r.payload.get("chunk_type") == "table":
+            header += " [TABELLE: vollständig wiedergeben]"
         parts.append(f"[{header}]\n{text}")
     return "\n\n---\n\n".join(parts)
 

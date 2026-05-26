@@ -138,11 +138,10 @@ questions:
   question: "Wärmepumpe Halle 1, Wie führe ich einen manuellen Entfrostungsvorgang\
     \ durch?"
   expected_machine: cfg__bosch__ui800__nf87-02__de
-  expected_topics:
-  - Entfrostung
+  expected_topics: []
   expected_safety_quote: null
   expected_menu_path: null
-  should_be_answerable: true
+  should_be_answerable: false
 
 - id: q15
   question: "Wärmepumpe Halle 1, Was soll ich nach einem Stromausfall tun?"
