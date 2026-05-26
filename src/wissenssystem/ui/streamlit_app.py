@@ -11,7 +11,7 @@ from wissenssystem.agent.machine_resolver import MachineResolver
 from wissenssystem.agent.orchestrator import AnswerResult, Orchestrator
 from wissenssystem.config import get_settings
 from wissenssystem.providers.local_blob_store import LocalBlobStore
-from wissenssystem.providers.ollama_provider import OllamaLLMProvider
+from wissenssystem.providers.llm_factory import build_llm
 from wissenssystem.providers.qdrant_store import QdrantVectorStore
 from wissenssystem.providers.sentence_transformer_embeddings import (
     SentenceTransformerEmbeddingProvider,
@@ -39,7 +39,12 @@ def _load_resources():
     cfg = get_settings()
 
     embedder = SentenceTransformerEmbeddingProvider(cfg.embedding_model)
-    llm = OllamaLLMProvider(model=cfg.llm_model, ollama_url=cfg.ollama_url)
+    llm = build_llm(
+        cfg.llm_provider,
+        cfg.llm_model,
+        api_key=cfg.anthropic_api_key.get_secret_value() if cfg.anthropic_api_key else None,
+        ollama_url=cfg.ollama_url,
+    )
     blob_store = LocalBlobStore(cfg.blobs_dir)
 
     from qdrant_client import QdrantClient
@@ -62,6 +67,7 @@ def _load_resources():
             vector_store, embedder,
             top_k=cfg.retrieval_top_k,
             bm25_dir=cfg.data_dir / "bm25",
+            llm_provider=llm,
         ),
         answer_generator=AnswerGenerator(llm),
         reranker=Reranker(llm_provider=llm),

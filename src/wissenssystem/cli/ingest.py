@@ -25,9 +25,13 @@ def main() -> None:
     # Deferred imports so the CLI starts fast even without all providers loaded
     from wissenssystem.config import get_settings
     from wissenssystem.ingestion.pipeline import IngestionPipeline
+    from wissenssystem.providers.claude_vision_parser import ClaudeVisionParserAdapter
     from wissenssystem.providers.docling_parser import DoclingParserAdapter
     from wissenssystem.providers.local_blob_store import LocalBlobStore
-    from wissenssystem.providers.ollama_provider import OllamaLLMProvider, OllamaVisionProvider
+    from wissenssystem.providers.llm_factory import build_llm
+    from wissenssystem.providers.ollama_provider import OllamaVisionProvider
+    from wissenssystem.providers.anthropic_provider import AnthropicVisionProvider
+    from wissenssystem.providers.claude_vision_menu_extractor import ClaudeVisionMenuExtractor
     from wissenssystem.providers.sentence_transformer_embeddings import (
         SentenceTransformerEmbeddingProvider,
     )
@@ -38,14 +42,32 @@ def main() -> None:
     embedder = SentenceTransformerEmbeddingProvider(cfg.embedding_model)
 
     print("Initialising providers…")
-    parser_adapter = DoclingParserAdapter()
+    if cfg.use_vision_parser and cfg.llm_provider == "anthropic" and cfg.anthropic_api_key:
+        parser_adapter = ClaudeVisionParserAdapter(
+            api_key=cfg.anthropic_api_key.get_secret_value()
+        )
+        print("Parser: Claude Vision (Anthropic)")
+    else:
+        parser_adapter = DoclingParserAdapter()
+        print("Parser: Docling (local)")
     blob_store = LocalBlobStore(cfg.blobs_dir)
-    llm = OllamaLLMProvider(model=cfg.llm_model, ollama_url=cfg.ollama_url)
-    vision = (
-        None
-        if args.no_vision
-        else OllamaVisionProvider(model=cfg.vision_model, ollama_url=cfg.ollama_url)
+    llm = build_llm(
+        cfg.llm_provider,
+        cfg.llm_model,
+        api_key=cfg.anthropic_api_key.get_secret_value() if cfg.anthropic_api_key else None,
+        ollama_url=cfg.ollama_url,
     )
+    if args.no_vision:
+        vision = None
+    elif cfg.llm_provider == "anthropic" and cfg.anthropic_api_key:
+        vision = AnthropicVisionProvider(
+            model="claude-haiku-4-5-20251001",
+            api_key=cfg.anthropic_api_key.get_secret_value(),
+        )
+        print("Vision: Claude Haiku (Anthropic)")
+    else:
+        vision = OllamaVisionProvider(model=cfg.vision_model, ollama_url=cfg.ollama_url)
+        print(f"Vision: Ollama ({cfg.vision_model})")
 
     # Qdrant vector store — try remote server, fall back to local file-based mode
     from qdrant_client import QdrantClient
@@ -67,6 +89,13 @@ def main() -> None:
     bm25_dir = cfg.data_dir / "bm25"
     bm25_dir.mkdir(parents=True, exist_ok=True)
 
+    vision_menu_extractor = None
+    if not args.no_vision and cfg.anthropic_api_key:
+        vision_menu_extractor = ClaudeVisionMenuExtractor(
+            api_key=cfg.anthropic_api_key.get_secret_value()
+        )
+        print("Menu paths: Claude Vision (Anthropic)")
+
     pipeline = IngestionPipeline(
         parser=parser_adapter,
         embedder=embedder,
@@ -75,6 +104,7 @@ def main() -> None:
         vision_provider=vision,
         llm_provider=llm,
         bm25_dir=bm25_dir,
+        vision_menu_extractor=vision_menu_extractor,
     )
 
     print(f"\nIngesting {args.pdf_path} → {args.namespace}")

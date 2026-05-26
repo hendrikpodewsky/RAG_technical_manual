@@ -15,9 +15,15 @@ class Settings(BaseSettings):
     blobs_dir: Path = Path("data/blobs")
     registry_db_path: Path = Path("data/registry.db")
 
-    llm_model: str = "qwen2.5:3b"
+    # LLM provider: "ollama" or "anthropic"
+    # Set USE_VISION_PARSER=false to force Docling for this ingest
+    use_vision_parser: bool = True
+    llm_provider: str = "anthropic"
+    llm_model: str = "claude-sonnet-4-6"
     vision_model: str = "moondream"
-    embedding_model: str = "paraphrase-multilingual-MiniLM-L12-v2"
+    embedding_model: str = "intfloat/multilingual-e5-large"
+
+    anthropic_api_key: SecretStr | None = None
 
     intent_confidence_threshold: float = 0.7
     machine_resolution_threshold: float = 0.75

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from wissenssystem.domain.chunk import ImageChunk
+from wissenssystem.domain.menu_path import MenuPath
 from wissenssystem.ingestion.chunker import Chunker
 from wissenssystem.ingestion.image_describer import ImageDescriber
 from wissenssystem.ingestion.menu_path_extractor import MenuPathExtractor
@@ -36,6 +37,7 @@ class IngestionPipeline:
         vision_provider: VisionProvider | None = None,
         llm_provider: LLMProvider | None = None,
         bm25_dir: Path | None = None,
+        vision_menu_extractor: object | None = None,
     ) -> None:
         self._parser = parser
         self._embedder = embedder
@@ -44,6 +46,7 @@ class IngestionPipeline:
         self._vision = vision_provider
         self._llm = llm_provider
         self._bm25_dir = bm25_dir
+        self._vision_menu_extractor = vision_menu_extractor
 
     def ingest(self, pdf_path: Path, namespace: str) -> IngestReport:
         doc_id = f"{namespace}__{pdf_path.stem}"
@@ -54,7 +57,17 @@ class IngestionPipeline:
         text_chunks = chunker.chunk(blocks)
 
         menu_extractor = MenuPathExtractor(self._llm)
-        menu_paths = menu_extractor.extract(blocks, namespace)
+        menu_paths: list[MenuPath] = menu_extractor.extract(blocks, namespace)
+
+        # Supplement with Vision-based menu path extraction when available.
+        if self._vision_menu_extractor is not None:
+            vision_paths = self._vision_menu_extractor.extract(pdf_path, namespace)
+            # Deduplicate by node sequence (Vision may repeat paths found by heuristic).
+            existing_node_keys = {tuple(p.nodes) for p in menu_paths}
+            for vp in vision_paths:
+                if tuple(vp.nodes) not in existing_node_keys:
+                    menu_paths.append(vp)
+                    existing_node_keys.add(tuple(vp.nodes))
 
         image_chunks: list[ImageChunk] = []
         if self._vision:
@@ -68,8 +81,13 @@ class IngestionPipeline:
         # and only dilute the vector space.
         indexable_chunks = [c for c in text_chunks if c.chunk_type != "section"]
 
+        def _embed_text(chunk: object) -> str:
+            if getattr(chunk, "chunk_type", None) == "table" and getattr(chunk, "section_title", None):
+                return f"{chunk.section_title}: {chunk.text}"  # type: ignore[attr-defined]
+            return chunk.text  # type: ignore[attr-defined]
+
         # Embed text chunks and image descriptions
-        text_vectors = self._embedder.embed([c.text for c in indexable_chunks]) if indexable_chunks else []
+        text_vectors = self._embedder.embed([_embed_text(c) for c in indexable_chunks]) if indexable_chunks else []
         image_vectors = (
             self._embedder.embed([c.description for c in image_chunks]) if image_chunks else []
         )

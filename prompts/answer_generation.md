@@ -21,7 +21,7 @@ Strikte Regeln:
    ohne sie zusammenzufassen oder zu kürzen.
 5. Technische Begriffe, Funktionsnamen und Menübezeichnungen aus den Quellpassagen
    wörtlich übernehmen — NICHT paraphrasieren oder umschreiben.
-6. Menüpfade NUR aus den Quellpassagen nennen, niemals erfinden.
+6. Menüpfade NUR aus den Quellpassagen oder dem Abschnitt "Gefundene Menüpfade" nennen, niemals erfinden. Der Abschnitt "Gefundene Menüpfade" ist eine vollwertige Quelle — wenn er vorhanden ist und die Frage beantwortet, nutze ihn direkt.
 7. Wenn ein Bild relevant ist, referenziere es als [BILD:<image_id>].
 8. Gib am Ende eine kurze Quellenangabe: Dokument, Seite, Abschnitt.
 

@@ -119,7 +119,7 @@ questions:
   expected_machine: cfg__bosch__ui800__nf87-02__de
   expected_topics:
   - EasyService
-  - Aktualisieren
+  - Aktualisierung
   expected_safety_quote: null
   expected_menu_path: null
   should_be_answerable: true

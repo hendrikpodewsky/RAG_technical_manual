@@ -6,7 +6,7 @@ from wissenssystem.interfaces.llm_provider import LLMProvider, Message
 from wissenssystem.retrieval.hybrid_search import SearchResult
 
 _PROMPT_PATH = Path(__file__).parent.parent.parent.parent / "prompts" / "reranker.md"
-_MAX_CHARS_PER_CHUNK = 400
+_MAX_CHARS_PER_CHUNK = 800
 
 
 def _load_prompt() -> str:

@@ -1,7 +1,7 @@
 from typing import Any
 
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, PointStruct, VectorParams
+from qdrant_client.models import Distance, FieldCondition, Filter, MatchValue, PointStruct, VectorParams
 
 from wissenssystem.interfaces.vector_store import VectorHit, VectorItem
 
@@ -44,6 +44,34 @@ class QdrantVectorStore:
         ).points
         return [
             VectorHit(id=str(r.id), score=r.score, payload=r.payload or {})
+            for r in results
+        ]
+
+    def fetch_by_ids(self, namespace: str, ids: list[str]) -> list[VectorHit]:
+        int_ids = [_stable_id(i) for i in ids]
+        results = self._client.retrieve(
+            collection_name=namespace,
+            ids=int_ids,
+            with_payload=True,
+        )
+        id_to_str = {_stable_id(i): i for i in ids}
+        return [
+            VectorHit(id=id_to_str.get(r.id, str(r.id)), score=0.0, payload=r.payload or {})
+            for r in results
+        ]
+
+    def fetch_by_parent_id(self, namespace: str, parent_id: str) -> list[VectorHit]:
+        results, _ = self._client.scroll(
+            collection_name=namespace,
+            scroll_filter=Filter(must=[
+                FieldCondition(key="parent_chunk_id", match=MatchValue(value=parent_id))
+            ]),
+            with_payload=True,
+            with_vectors=False,
+            limit=50,
+        )
+        return [
+            VectorHit(id=r.payload.get("chunk_id", str(r.id)), score=0.0, payload=r.payload or {})
             for r in results
         ]
 

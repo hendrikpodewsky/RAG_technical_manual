@@ -7,8 +7,16 @@ from pathlib import Path
 from rank_bm25 import BM25Okapi
 
 
+def _normalize(word: str) -> str:
+    """Strip common German inflection suffixes for light stemming."""
+    for suffix in ("en", "er", "em", "es", "e"):
+        if word.endswith(suffix) and len(word) > len(suffix) + 2:
+            return word[:-len(suffix)]
+    return word
+
+
 def _tokenize(text: str) -> list[str]:
-    return re.findall(r"\w+", text.lower())
+    return [_normalize(w) for w in re.findall(r"\w+", text.lower())]
 
 
 class BM25Index:

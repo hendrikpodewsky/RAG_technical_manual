@@ -1,30 +1,30 @@
 # Eval-Report
 
-**Score: 10/20 (50%)**
+**Score: 20/20 (100%)**
 
 
 | ID | Frage | Pass | Latenz | Fehler |
 |----|-------|------|--------|--------|
-| q01 | Wärmepumpe Halle 1, Was muss bei der Funktion Extra-Warmwass… | ✅ | 29.4s | — |
-| q02 | Wärmepumpe Halle 1, Welche Gefahr besteht bei zu hohen Tempe… | ✅ | 41.4s | — |
-| q03 | Wärmepumpe Halle 1, Wo im Menü stelle ich den geräuscharmen … | ❌ | 34.8s | missing topic: 'Geräuscharmer Betrieb' |
-| q04 | Wärmepumpe Halle 1, Ab welcher dauerhaften Vorlauftemperatur… | ✅ | 36.7s | — |
-| q05 | Wärmepumpe Halle 1, Wie programmiere ich eine WLAN-Verbindun… | ❌ | 83.3s | should be unanswerable but got a real answer |
-| q06 | Wärmepumpe Halle 1, Was bedeutet eine rote Status-LED an der… | ✅ | 29.2s | — |
-| q07 | Wärmepumpe Halle 1, Was bedeutet Standby-Betrieb und welche … | ❌ | 32.5s | missing topic: 'Frostschutz' |
-| q08 | Wärmepumpe Halle 1, Wo stelle ich die Warmwasser-Temperatur … | ✅ | 34.2s | — |
-| q09 | Wärmepumpe Halle 1, Wie starte ich die Wärmepumpe schnell ma… | ❌ | 32.4s | missing topic: 'Schnellstart'; missing topic: 'Kompressor' |
-| q10 | Wärmepumpe Halle 1, Wie wechsle ich die Systemfunktion von H… | ✅ | 36.7s | — |
-| q11 | Wärmepumpe Halle 1, Wozu dient die thermische Desinfektion d… | ✅ | 49.4s | — |
-| q12 | Wärmepumpe Halle 1, Was benötige ich für ein Software-Update… | ❌ | 34.2s | should be answerable but got no-info response; missing topic: 'EasyService'; missing topic: 'Aktualisieren' |
-| q13 | Wärmepumpe Halle 1, Wo im Servicemenü finde ich die aktuelle… | ✅ | 58.2s | — |
-| q14 | Wärmepumpe Halle 1, Wie führe ich einen manuellen Entfrostun… | ✅ | 34.0s | — |
-| q15 | Wärmepumpe Halle 1, Was soll ich nach einem Stromausfall tun… | ❌ | 39.3s | missing topic: 'Datum' |
-| q16 | Wärmepumpe Halle 1, Wie schütze ich die Anlage vor dem Einfr… | ❌ | 38.1s | missing topic: 'Frostschutz' |
-| q17 | Wärmepumpe Halle 1, Wo passe ich die Heizkurve an? | ❌ | 72.6s | missing topic: 'Heizkurve' |
-| q18 | Wärmepumpe Halle 1, Was muss ich nach Abschluss der Inbetrie… | ❌ | 50.4s | missing topic: 'speichern'; missing topic: 'Installateureinstell' |
-| q19 | Wie verbinde ich die Wärmepumpe mit der Bosch-App? | ✅ | 30.5s | — |
-| q20 | Wärmepumpe Halle 1, Wie integriere ich das Gerät in ein KNX-… | ❌ | 36.4s | should be unanswerable but got a real answer |
+| q01 | Wärmepumpe Halle 1, Was muss bei der Funktion Extra-Warmwass… | ✅ | 20.3s | — |
+| q02 | Wärmepumpe Halle 1, Welche Gefahr besteht bei zu hohen Tempe… | ✅ | 16.9s | — |
+| q03 | Wärmepumpe Halle 1, Wo im Menü stelle ich den geräuscharmen … | ✅ | 12.3s | — |
+| q04 | Wärmepumpe Halle 1, Ab welcher dauerhaften Vorlauftemperatur… | ✅ | 14.0s | — |
+| q05 | Wärmepumpe Halle 1, Wie programmiere ich eine WLAN-Verbindun… | ✅ | 11.4s | — |
+| q06 | Wärmepumpe Halle 1, Was bedeutet eine rote Status-LED an der… | ✅ | 18.0s | — |
+| q07 | Wärmepumpe Halle 1, Was bedeutet Standby-Betrieb und welche … | ✅ | 17.2s | — |
+| q08 | Wärmepumpe Halle 1, Wo stelle ich die Warmwasser-Temperatur … | ✅ | 24.6s | — |
+| q09 | Wärmepumpe Halle 1, Wie starte ich die Wärmepumpe schnell ma… | ✅ | 32.0s | — |
+| q10 | Wärmepumpe Halle 1, Wie wechsle ich die Systemfunktion von H… | ✅ | 25.3s | — |
+| q11 | Wärmepumpe Halle 1, Wozu dient die thermische Desinfektion d… | ✅ | 26.6s | — |
+| q12 | Wärmepumpe Halle 1, Was benötige ich für ein Software-Update… | ✅ | 31.5s | — |
+| q13 | Wärmepumpe Halle 1, Wo im Servicemenü finde ich die aktuelle… | ✅ | 21.5s | — |
+| q14 | Wärmepumpe Halle 1, Wie führe ich einen manuellen Entfrostun… | ✅ | 11.5s | — |
+| q15 | Wärmepumpe Halle 1, Was soll ich nach einem Stromausfall tun… | ✅ | 26.5s | — |
+| q16 | Wärmepumpe Halle 1, Wie schütze ich die Anlage vor dem Einfr… | ✅ | 27.0s | — |
+| q17 | Wärmepumpe Halle 1, Wo passe ich die Heizkurve an? | ✅ | 36.9s | — |
+| q18 | Wärmepumpe Halle 1, Was muss ich nach Abschluss der Inbetrie… | ✅ | 17.1s | — |
+| q19 | Wie verbinde ich die Wärmepumpe mit der Bosch-App? | ✅ | 23.8s | — |
+| q20 | Wärmepumpe Halle 1, Wie integriere ich das Gerät in ein KNX-… | ✅ | 26.2s | — |
 
 ## Antworten
 
@@ -32,270 +32,247 @@
 
 **Pass:** ✅
 
-> Verbrühungsgefahr!
+> **Verbrühungsgefahr!**
+> Beim Aktivieren der Funktion "Extra-Warmwasser", bei der thermischen Desinfektion und bei der täglichen Aufheizung sind Warmwassertemperaturen über 60 °C möglich. Deshalb muss eine Mischeinrichtung installiert werden.
 
-Beim Aktivieren der Funktion "Extra-Warmwasser", bei der thermischen Desinfektion und bei der täglichen Aufheizung sind Warmwassertemperaturn über 60 °C möglich. Deshalb muss eine Mischeinrichtung installiert werden, um Verbrühungsgefahr zu vermeiden.
+Bei der Funktion "Extra-Warmwasser" können Warmwassertemperaturen über 60 °C erreicht werden, was eine erhebliche Verbrühungsgefahr darstellt. Um dieser Gefahr zu begegnen, muss zwingend eine Mischeinrichtung installiert werden.
+
+---
+
+- Dokument: Originalhandbuch Wärmepumpe Halle 1, Seite 3, Abschnitt: Verbrühungsgefahr!
 
 ### q02: Wärmepumpe Halle 1, Welche Gefahr besteht bei zu hohen Temperaturen für Fußbodenheizungen?
 
 **Pass:** ✅
 
-> Verbrühungsgefahr!
+> **ACHTUNG – Schäden am Fußboden!**
+> Bei zu hohen Temperaturen sind Schäden am Fußboden möglich.
+> Bei Fußbodenheizung darauf achten, dass die Maximaltemperatur des jeweiligen Fußbodentyps nicht überschritten wird.
+> Ggf. einen zusätzlichen Temperaturwächter am Spannungseingang der jeweiligen Zirkulationspumpe oder an einen der externen Eingänge anschließen.
 
-Beim Aktivieren der Funktion "Extra-Warmwasser", bei der thermischen Desinfektion und bei der täglichen Aufheizung sind Warmwassertemperaturen über 60 °C möglich. Deshalb muss eine Mischeinrichtung installiert werden.
+Bei zu hohen Temperaturen besteht die Gefahr von **Schäden am Fußboden**. Es ist darauf zu achten, dass die Maximaltemperatur des jeweiligen Fußbodentyps nicht überschritten wird. Als Schutzmaßnahme kann gegebenenfalls ein zusätzlicher Temperaturwächter am Spannungseingang der jeweiligen Zirkulationspumpe oder an einen der externen Eingänge angeschlossen werden.
 
-Bei zu hohen Temperaturen für Fußbodenheizungen besteht Gefahr, dass Schäden am Fußboden auftreten. Hierbei ist es wichtig darauf zu achten, dass die Maximaltemperatur des jeweiligen Fußbodentyps nicht überschritten wird. In solchen Fällen kann es nützlich sein, einen zusätzlichen Temperaturwächter an den Spannungseingang der Zirkulationspumpe oder an einen externen Eingang anzuschließen.
-
-Es besteht also eine Verbrühungsgefahr bei zu hohen Temperaturen für Fußbodenheizungen. Um diese Gefahr zu vermeiden, sollte die Maximaltemperatur nicht überschritten werden und es kann hilfreich sein, einen Temperaturwächter einzubauen.
+- Dokument: Wärmepumpe Halle 1, Seite 3, Abschnitt: „Schäden am Fußboden!"
 
 ### q03: Wärmepumpe Halle 1, Wo im Menü stelle ich den geräuscharmen Betrieb ein?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> Achten Sie auf die Sicherheitshinweise
+Der geräuscharme Betrieb wird im folgenden Menüpfad eingestellt:
+
+**Servicemenü > Geräuscharmer Betrieb > Abschalten unterhalb Außentemperatur**
+
+- Quelle: Gefundene Menüpfade, Seite 7
 
 ### q04: Wärmepumpe Halle 1, Ab welcher dauerhaften Vorlauftemperatur kann die Lebensdauer des Geräts beeinträchtigt werden?
 
 **Pass:** ✅
 
-> Verbrühungsgefahr!
-
-Wenn eine konstante Vorlauftemperatur von mehr als 45 °C gewählt wird, kann die Lebensdauer des Geräts beeinträchtigt werden.
-
-### q05: Wärmepumpe Halle 1, Wie programmiere ich eine WLAN-Verbindung?
-
-**Pass:** ❌
-
-Hier ist eine Überarbeitung des Textes mit einer besseren Struktur und Einordnung:
+Laut den vorliegenden Quellpassagen kann die Lebensdauer des Geräts beeinträchtigt werden, wenn eine konstante Vorlauftemperatur von mehr als **45 °C** gewählt wird.
 
 ---
 
-### Anlageninfo
+- Dokument: Bedienungsanleitung Wärmepumpe
+- Seite: 11
+- Abschnitt: Heizkurve
 
-#### Heiz- und Kühlstatus
-- **Wärmepumpenstatus**
-  - Wärmepumpe-Sicht
-  - Kompressorstatus
-  - Zuheizerstatus
-  - Kompressor-Aufheizphase
-  - Max. Temperatur erreicht
-  - Vorlauftemperatur zu niedrig
-  - Max. Zuheizertemperatur überschritten
-  - Niedriger Durchfluss in Heizung
-- **Heiz-/Kühlbetrieb**
-  - Heizbetrieb aus, Außentemperatur zu niedrig
-  - Heizbetrieb aus, Außentemperatur zu warm
-  - Kühlbetrieb aus, Außentemperatur zu niedrig
-  - Kühlbetrieb aus, Außentemperatur zu hoch
-- **Sperre Energieversorger aktiv**
-- **PV aktivierter Betrieb**
-- **Smart Grid aktivierter Betrieb**
+### q05: Wärmepumpe Halle 1, Wie programmiere ich eine WLAN-Verbindung?
 
-#### Eingänge und Ausgänge
-- Externer Eingang 1
-- Externer Eingang 2
-- Externer Eingang 3
-- Externer Eingang 4
-- Betriebsdruck
-- MR0 Niederdruck-Schalter
-- MR1 Hochdruck-Schalter
-- MB1 Druckschalter Kollektor
-- Alarm elektr. Zuheizer
-- Temperatur
-- TB0 Solekreis Eintritt
-- TB1 Solekreis Austritt
-- TB2 Grundwasser Temp. Ein
-- TB3 Grundwasser Temp. Aus
-- TL2 Luftansaugtemperatur
-- TB5 Abluftmodul Eintritt
-- TB6 Abluftmodul Austritt
-- TL2 Abflutmodul Zuluft
-- TL1 Abluftmodul Abluft
-- JR0 Niederdruckfühler
-- TR5 Temperatur Saugleitung
-- Kompressor-Aufheizen Ist
-- Kompressor-Aufheizen Stopp
-- TR6 Heißgastemperatur
-- JR1 Hochdruckfühler
-- TR3 Verflüssigertemp. Heizung
-- TR4 Verdampfertemp.
-- TC3 Verflüssigertemp.
-- TC1 Vorlauftemp. primär
-- TC0 Rücklauftemperatur
-- TC1 Ende WW-Anforderung
-- TA4 Temp. Kondensatwanne
+**Pass:** ✅
 
-#### Ausgänge
-- Sammelalarm
-- Kompressor
-  - Kompr. Istdrehzahl
-  - Max. Kompressordrehzahl
-  - Kompr. Solldrehzahl
-  - PC0 prim. Heizungspumpe
-  - PC0 Drehzahl
-  - Zuheizer Stufe 1
-  - Zuheizer Stufe 2
-  - Zuheizer Stufe 3
-- Leistung Zuheizer
-  - Elektrischer Zuheizer WW
-- PL3 Gebläse
-- VR0 Expansionsventil
-- VR1 Expansionsventil
-- Pumpenblockierschutz
-- Übersicht Timer
-  - Kompressorstart
-  - Restzeit im Heizbetrieb
-  - Restzeit im WW-Betrieb
-  - Einschaltverzög. Zuheizer
-  - Verzög. So-/Wi-Umschaltung
-- Nur Alarme
-  - Niederdruck-Störung
-  - Verzög. starten nach Abtauung
-  - Therm. Desinf. Warmhaltung
-  - Entlüftungsfunktion aktiv
-
-#### Heiz- und Kühlstatus (Fortsetzung)
-- Umschaltverzögerung Heizen
-- Verzögerung Zuheizer
-- Power Meter
-  - Stromverbrauch
-  - 48h Mittelwert Strom
-  - 48h Spitzenwert Strom
-- Statistik
-  - Laufzeit
-  - Kompressorstarts
-  - Energieverbrauch
-  - Abgegebene Energie
-- Rücksetzen der Statistiken
-
-#### Anlageninfo
-- Außentemperatur
-- Dämpfung Gebäudeart
-- Vorlaufsollwert
-- Rücklauftemperatur
-- Heizkreis 1
-  - Betriebsart
-  - Vorlaufsollwert
-  - Vorlauftemperatur
-  - Raum-Solltemperatur HK1
-  - Akt
+Mir liegt dazu keine Information vor.
 
 ### q06: Wärmepumpe Halle 1, Was bedeutet eine rote Status-LED an der Bedieneinheit?
 
 **Pass:** ✅
 
-> ...
-> 
-> | LED-Farbe   | Betriebsstatus                                                                |
-> |-------------|-------------------------------------------------------------------------------|
-> | Grün        | Normalbetrieb.                                                                |
-> | Gelb        | Warnungen, nicht blockierende Anlagenstörun - gen oder Wartungsinformationen. |
-> | Rot         | Verriegelnde oder blockierende Störungen.                                     |
+Eine rote Status-LED an der Bedieneinheit bedeutet, dass **verriegelnde oder blockierende Störungen** vorliegen.
 
-Eine rote Status-LED an der Bedieneinheit bedeutet **Verriegelnde oder blockierende Störungen**.
+Die vollständige Tabelle der Status-LED-Bedeutungen lautet:
+
+| LED-Farbe | Betriebsstatus |
+|-------------|-------------------------------------------------------------------------------|
+| Grün | Normalbetrieb. |
+| Gelb | Warnungen, nicht blockierende Anlagenstörungen oder Wartungsinformationen. |
+| Rot | Verriegelnde oder blockierende Störungen. |
+
+Die LED befindet sich oben auf dem Bedienfeld und zeigt mithilfe von verschiedenen Farben den Betriebsstatus des Geräts an.
+
+---
+
+**Quellen:**
+- Dokument: Bedienungsanleitung Wärmepumpe
+- Seite 3, Abschnitt: Status-LED (Tabelle)
 
 ### q07: Wärmepumpe Halle 1, Was bedeutet Standby-Betrieb und welche Funktion ist dabei nicht aktiv?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> Sperre Energieversorger aktiv
+Der **Standby-Betrieb** bedeutet, dass die Anlage komplett ausgeschaltet ist. Die Funktion, die dabei nicht aktiv ist, ist der **Frostschutz**.
 
-Standby-Betrieb bedeutet, dass bestimmte Funktionen nicht aktiv sind, während andere inaktiv bleiben. In diesem Fall ist der Heizbetrieb und der Kühlbetrieb nicht aktiv, da die Wärmepumpe im Standby-Betrieb ist.
+Konkret heißt es in der Bedienungsanleitung:
+
+> „Standby bedeutet, dass die Anlage komplett ausgeschaltet ist und keine Sicherheitsfunktionen, wie Frostschutz, aktiv sind."
+
+Um den Standby-Betrieb zu aktivieren, ist folgender Menüpfad vorgesehen:
+
+- **Option > Menü** im Startmenü auswählen
+- Für weitere Menüoptionen **Expertenansicht > Ein** auswählen
+- **Standby-Betrieb** in der Liste auswählen
+- Auf **Ja** drücken
+
+Um die Anlage aus dem Standby-Betrieb wieder einzuschalten, ist auf das Display zu drücken und **Ja** zu wählen.
+
+---
+
+- Dokument: Bedienungsanleitung Wärmepumpe
+- Seite: 5
+- Abschnitt: 4.5 Abschaltung
 
 ### q08: Wärmepumpe Halle 1, Wo stelle ich die Warmwasser-Temperatur im Servicemenü ein?
 
 **Pass:** ✅
 
-In diesem Menü können Warmwassereinstellungen vorgenommen werden, die für die Wärmepumpe relevant sind. Um die gewünschte Temperatur für den Warmwasserbetrieb zu setzen, musst du in das entsprechende Menü gehen und dort die Einstellung für die Starttemperatur angeben.
+Die Warmwasser-Temperatur wird im Servicemenü unter dem Menüpunkt **Temperatur** im **Menü: Warmwasser** eingestellt. Laut den gefundenen Menüpfaden sind folgende Einstellungen dort verfügbar:
 
-Die beschriebenen Einstellungen sind nur zugänglich, wenn die Anlage wie hier beschrieben aufgebaut und konfiguriert ist. Diese Einstellungen finden sich in der entsprechenden Anleitung der Inneneinheit.
+- **Servicemenü > Menü: Warmwasser > Temperatur > Komfort Starttemperatur**
+- **Servicemenü > Menü: Warmwasser > Temperatur > Energieman. Starttemp.**
+- **Servicemenü > Menü: Warmwasser > Temperatur > Energieman. Stopptemp.**
 
-Um die gewünschte Temperatur für den Warmwasserbetrieb zu setzen, musst du im Menü Warmwasser die Option Temperatur wählen und dann den gewünschten Wert eingeben.
+Dabei ist zu beachten, dass im Menüpunkt **Temperatur** der gewünschte Wert für jedes Temperaturniveau eingestellt werden kann.
+
+Zusätzlich besteht die Möglichkeit, über den Menüpunkt **Expertenansicht** (auf **Ein** stellen) weitere konfigurierbare Parameter anzuzeigen, die bei der Auslieferung standardmäßig ausgeblendet sind.
+
+Hinweis: Die genauen Einstellungsbereiche und Standardwerte für Warmwasser hängen von der installierten Kombination aus Wärmepumpe und Inneneinheit ab und sind in der entsprechenden Anleitung der Inneneinheit zu finden.
+
+---
+
+- Dokument, Seite 13, Abschnitt: Menü: Warmwasser
+- Dokument, Seite 5, Abschnitt: 4.2.2 Wichtige Einstellungen für den Warmwasserbetrieb
+- Gefundene Menüpfade (Seite 13)
 
 ### q09: Wärmepumpe Halle 1, Wie starte ich die Wärmepumpe schnell manuell über das Servicemenü?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> Verbrühungsgefahr!
+# Schnellstart der Wärmepumpe über das Servicemenü
 
-Strich die Menüauswahl hängt von der installierten Wärmepumpe ab.
+Um die Wärmepumpe schnell manuell über das Servicemenü zu starten, gehen Sie wie folgt vor:
 
-Für die Manuelle Inbetriebnahme der Wärmepumpe Halle 1 über das Servicemenü ist keine spezifische Menüauswahl oder Einstellung in den beschriebenen Passagen erwähnt. Daher:
+1. **Servicemenü aufrufen:** Die entsprechende Taste auswählen und halten, bis das Servicemenü erscheint (ca. 5 Sekunden).
 
->
+2. **Menüpfad navigieren:** Im Servicemenü **Anlageneinstellungen** auswählen und anschließend **Manuelle Inbetriebnahme** auswählen.
+
+3. **Schnellstart aktivieren:** **Schneller Kompressorstart** auswählen.
+
+4. **Bestätigen:** Im Dialogfenster **Ja** auswählen.
+
+Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet (je nach Aufheizphase des Kompressors).
+
+Alternativ kann im Menü auch **Nein** ausgewählt werden, um zurückzukehren, ohne die Funktion zu aktivieren.
+
+---
+
+**Quellen:**
+- Dokument, Seite 5, Abschnitt: 4.6 Schnellstart der Wärmepumpe
+- Dokument, Seite 6, Abschnitt: Menü: Wärmepumpe (Tabelle: Schneller Kompressorstart)
+- Gefundene Menüpfade: Servicemenü > Anlageneinstellungen > Manuelle Inbetriebnahme (Seite 6)
 
 ### q10: Wärmepumpe Halle 1, Wie wechsle ich die Systemfunktion von Heizen auf Kühlen?
 
 **Pass:** ✅
 
-> Verbrühungsgefahr!
+# Wechsel der Systemfunktion von Heizen auf Kühlen
 
-Beim Aktivieren der Funktion "Extra-Warmwasser", bei der thermischen Desinfektion und bei der täglichen Aufheizung sind Warmwassertemperaturen über 60 °C möglich. Deshalb muss eine Mischeinrichtung installiert werden.
+> **HINWEIS:** Für einen effizienten Wärmepumpenbetrieb sollte vermieden werden, die Betriebsart (Heizen oder Kühlen) für einen Tag zu wechseln. Es muss sichergestellt sein, dass die Anlage vor Kondensat geschützt ist.
 
-Um die Systemfunktion von Heizen auf Kühlen zu wechseln, müssen Sie folgende Schritte ausführen:
+Um die Systemfunktion von Heizen auf Kühlen umzustellen, navigieren Sie zum Menüpunkt **Systemfunktion HK1** über folgenden Menüpfad:
 
-1) Wählen Sie das Menü "Heizen und Kühl" aus.
-2) Konfigurieren Sie den Heizkreis für den Kühlbetrieb. Dies geschieht nur, wenn eine Fernbedienung mit Feuchtefühler installiert ist.
-3) Wenn die Anlage bereits vor Kondensat geschützt ist, können Sie das Menü "Kühl" anzeigen lassen.
+**Servicemenü > Heizkreis 1 > Systemfunktion HK1**
 
-Bitte stellen Sie sicher, dass die Anlage vor Kondensat geschützt ist. Die maximale Temperatureinstellung hängt von der Variante der Inneneinheit ab.
+Dort stehen folgende Optionen zur Auswahl:
 
-Wenn für den Heizkreis nur Kühl oder Heizen und Kühl als Betriebsart festgelegt sind, wird das Menü "Kühl" angezeigt. Wenn Sie die Anlage nicht vor Kondensat geschützt haben, ist es nicht sicher, die Systemfunktion von Heizen auf Kühl zu wechseln.
+- **Nur Hz.** auswählen, um die Anlage ausschließlich im Heizbetrieb zu betreiben.
+- **Kühlen** auswählen, um die Anlage ausschließlich im Kühlbetrieb zu betreiben.
+- **Heizen und Kühlen** auswählen, um die Anlage im Heiz- und Kühlbetrieb zu betreiben.
 
-Bitte beachten Sie, dass diese Schritte nur für bestimmte Länder verfügbar sind und nur bei bestimmten Anlagenkombinationen angewendet werden können.
+Wählen Sie entsprechend **Kühlen** aus, um ausschließlich in den Kühlbetrieb zu wechseln.
+
+Zusätzlich ist zu beachten: Um im Sommer in den Kühlbetrieb zu wechseln, muss einer der Heizkreise für den Kühlbetrieb konfiguriert werden. Wenn für den Heizkreis **Kühlen** oder **Heizen und Kühlen** als Betriebsart festgelegt ist, wird das Menü **Kühlen** angezeigt.
+
+---
+
+- Dokument, Seite 9, Abschnitt: 5.1.5 Menü: Heizen und Kühlen (Tabelle: Heizkreis 1, Systemfunktion HK1)
+- Dokument, Seite 10, Abschnitt: 5.1.5 Menü: Heizen und Kühlen
+- Dokument, Seite 15, Abschnitt: Erstinbetriebnahme des Bedienfelds (Tabelle: Systemfunktion HK1)
 
 ### q11: Wärmepumpe Halle 1, Wozu dient die thermische Desinfektion des Warmwasserspeichers?
 
 **Pass:** ✅
 
-> Verbrühungsgefahr!
+Die thermische Desinfektion des Warmwasserspeichers dient dazu, Krankheitserreger (z. B. Legionellen) abzutöten. Sie ist regelmäßig durchzuführen. Für größere Warmwasseranlagen gelten gegebenenfalls spezielle Rechtsbestimmungen für die thermische Desinfektion.
 
-Die thermische Desinfektion des Warmwasserspeichers dient dazu, Krankheitserreger wie Legionellen abzutöten. Diese Funktion wird im Menü Warmwasser aktiviert und ermöglicht es, die Temperatur des Warmwasserspeichers zu erhöhen, wenn der Armaturen zur Desinfektion der Verrohrung geöffnet werden. Es wird empfohlen, diese Einstellung regelmäßig durchzuführen, um sicherzustellen, dass die Wärmepumpe die Temperatur des Warmwasserspeichers entsprechend den Einstellungen der Konfiguration aufrechterhält.
+> **Verbrühungsgefahr!**
+> Beim Aktivieren der Funktion "Extra-Warmwasser", bei der thermischen Desinfektion und bei der täglichen Aufheizung sind Warmwassertemperaturen über 60 °C möglich. Deshalb muss eine Mischeinrichtung installiert werden.
 
-Die thermische Desinfektion erfolgt bei der Aktivierung der Funktion "Extra-Warmwasser", bei der thermischen Desinfektion und bei der täglichen Aufheizung. Diese Maßnahmen sind jedoch nur möglich, wenn eine Mischeinrichtung installiert ist, um Warmwassertemperaturen über 60 °C zu vermeiden.
+Zusätzlich wird darauf hingewiesen: Wenn die Armaturen während der thermischen Desinfektion zur Desinfizierung der Verrohrung geöffnet werden, die Armaturen von Zeit zu Zeit wieder schließen, um der Wärmepumpe die Gelegenheit zu geben, die Temperatur des Warmwasserspeichers entsprechend den Einstellungen der Konfiguration aufrechtzuerhalten.
 
-Die Einstellungen für die thermische Desinfektion finden sich im Menü Warmwasser und hängen von der installierten Kombination von Wärmepumpe und Inneneinheit ab. Es wird empfohlen, diese Einstellungen bei der Inbetriebnahme zu prüfen und ggf. anzupassen, um sicherzustellen, dass der Warmwasserbetrieb einwandfrei funktioniert.
+---
 
-Die maximale Temperatureinstellung ist von der Variante der Inneneinheit abhängig und muss sichergestellt werden, dass die Anlage vor Kondensat geschützt ist. Es wird empfohlen, den Hochdruckschalter-Test in Österreich durchzuführen, wenn das Wärmepumpe-Kältemittel R290 verwendet wird und eine Heizleistung von mehr als 7 kW bereitgestellt wird.
-
-Die thermische Desinfektion des Warmwasserspeichers ist daher ein wichtiger Bestandteil der Wärmepumpen-Systeme, um sicherzustellen, dass die Anlagen hygienisch und effizient funktionieren.
+- Dokument: Bedienungsanleitung Wärmepumpe
+- Seite 13, Abschnitt: 5.1.8 Menü: Warmwasser
+- Seite 3, Abschnitt: Verbrühungsgefahr!
 
 ### q12: Wärmepumpe Halle 1, Was benötige ich für ein Software-Update der Bedieneinheit?
 
-**Pass:** ❌
+**Pass:** ✅
 
-Mir liegt dazu keine Information vor.
+Für ein Software-Update der Bedieneinheit benötigen Sie folgendes:
+
+**Voraussetzungen (Hardware & Software):**
+
+- K40 RF ist eingesteckt.
+- Service-App Bosch EasyService ist auf dem Mobilgerät installiert.
+
+**App herunterladen und installieren:**
+
+Die Service-App Bosch EasyService ist erhältlich im Apple App Store oder Google Play Store. Zum Prüfen und Herunterladen von Updates auf das Mobilgerät ist eine Internetverbindung erforderlich. Nach der Installation müssen die Nutzungsbedingungen sowie die kontinuierliche Aktualisierung der Datenbank bestätigt werden. Anschließend ist in der Service-App Bosch EasyService manuell der erste Download der Software-Datenbank zu starten.
+
+**Hinweis zur Internetverbindung:**
+
+Da die Software-Datenbank auf dem Mobilgerät gespeichert wird, ist für die eigentliche Aktualisierung des Geräts vor Ort keine Internetverbindung erforderlich. Die Internetverbindung wird lediglich für das Herunterladen der Datenbank auf das Mobilgerät benötigt.
+
+**Durchführung des Updates am Gerät:**
+
+Die Funktion Software-Aktualisierung im Servicemenü des Geräts auswählen, anschließend in der Service-App Software-Aktualisierung > Software-Aktualisierung starten auswählen und den auf dem Gerät angezeigten QR-Code mit der Service-App scannen.
+
+- Quellen: Installationsanleitung, Seite 18, Abschnitt „Voraussetzungen"; Seite 18, Abschnitt „App herunterladen und installieren"; Seite 18, Abschnitt „Aktualisieren der Systemsoftware (5.5)"; Seite 19, Abschnitt „Auf dem Gerät auf Updates prüfen"
 
 ### q13: Wärmepumpe Halle 1, Wo im Servicemenü finde ich die aktuellen Störungen der Anlage?
 
 **Pass:** ✅
 
-> **Übersicht der Menüpfade und Informationen zur Störungsbehandlung:**
->
-> In der beschriebenen Systemstruktur ist es wichtig zu beachten, dass das Servicemenü für die Überprüfung von Warnungen und Störungen sowie die Rücksetzung des Störungsverlaufs verfügbar ist. Dieses Menü wird in Kapitel 5 auf Seite 6 genauer behandelt.
->
-> **Störungsbehandlung:**
->
-> Die Störungsbehandlung erfolgt im Servicemenü, das sich in der beschriebenen Systemstruktur befindet. Es bietet eine Überprüfung und Rücksetzung von Warnungen sowie den Störungsverlauf an. Diese Funktion wird in Kapitel 5 auf Seite 6 genauer behandelt.
->
-> **Menüpfade zur Lüftung:**
->
-> Die Einstellungen für die Lüftung sind im Menü "Lüftung" verfügbar, das sich ebenfalls in der beschriebenen Systemstruktur befindet. Diese Informationen werden in Kapitel 5 auf Seite 14 genauer behandelt.
->
-> **Gefundene Menüpfade:**
->
-> - Um im Sommer in den Kühlbetrieb zu wechseln, muss einer der Heizkreise für den Kühlbetrieb konfiguriert werden. (Seite 10)
-> - Verfügbar wenn ein Energy Manager angeschlossen und konfiguriert ist. (Seite 14)
+Im Servicemenü finden Sie die aktuellen Störungen der Anlage unter dem Menüpunkt **Aktuelle Störungen Anlage** im Untermenü **Störungen**.
 
-**Fazit:**
-Es wird empfohlen, das Servicemenü im System zu überprüfen, um Warnungen und Störungsverlaufe zu beheben. Die Einstellungen für die Lüftung sind in der Menüebene "Lüftung" verfügbar. Es ist wichtig, dass ein Energy Manager angeschlossen und konfiguriert ist, damit die entsprechenden Einstellungen zur Verfügung stehen.
+Der Menüpfad lautet: **Servicemenü > Störungen > Aktuelle Störungen Anlage**
 
----
+Dort werden alle aktuellen Alarme in der Anlage angezeigt, und zwar die neuesten Alarme für die gesamte Anlage in chronologischer Reihenfolge.
 
-**Anmerkungen:**
-- Das Servicemenü bietet eine wichtige Funktion für die Überprüfung von Warnungen und Störungsverlaufen.
-- Die Einstellungen für die Lüftung sind in der Menüebene "Lüftung" verfügbar, aber nur wenn ein Energy Manager angeschlossen ist.
-- Es wird empfohlen, das Servicemenü im System zu überprüfen, um Warnungen und Störungsverlaufe zu beheben.
+Um das Servicemenü aufzurufen, muss die Taste **Menü** gedrückt gehalten werden, bis der Countdown abgelaufen ist (ca. 5 Sekunden).
+
+Das Menü **Störungen** enthält folgende Menüpunkte:
+
+| Menüpunkt | Beschreibung |
+|---|---|
+| Aktuelle Störungen Anlage | Hier werden alle aktuellen Alarme in der Anlage angezeigt. Hier werden die neuesten Alarme für die gesamte Anlage in chronologischer Reihenfolge angezeigt. |
+| Störungsverlauf Wärmep. | Hier werden die neuesten Alarme für die Wärmepumpe in chronologischer Reihenfolge angezeigt. Für jeden gespeicherten Alarm ist eine Momentaufnahme mit den aktuellen Daten zum Zeitpunkt des Auftretens des Alarms verfügbar. Auf den Alarm drücken, um die Momentaufnahme anzuzeigen. |
+| Störungsverlauf Anlage | Hier werden die neuesten Alarme für die Anlage in chronologischer Reihenfolge angezeigt. |
+| Akt. Störungen Wärmep. zurücks. | Aktive Alarme zurücksetzen. |
+| Verriegelnde Störungen Wärmep. zurücksetzen | Ist der Fehler beseitigt, müssen die aktive Alarme, die zum Anhalten des Kompressors geführt hatten, zurückgesetzt werden. |
+| Wärmepumpen-Störungshist. | Alarmverlauf der Wärmepumpe zurücksetzen. |
+| System-Störungshistorie | Alle Alarme zurücksetzen. |
+
+- Quelle: Dokument, Seite 17, Abschnitt 5.2.3 „Menü: Störungen" sowie Seite 19, Abschnitt 8 „Übersicht Service"
 
 ### q14: Wärmepumpe Halle 1, Wie führe ich einen manuellen Entfrostungsvorgang durch?
 
@@ -305,176 +282,100 @@ Mir liegt dazu keine Information vor.
 
 ### q15: Wärmepumpe Halle 1, Was soll ich nach einem Stromausfall tun?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> Verbrühungsgefahr!
+Nach einem Stromausfall müssen **Datum und Uhrzeit** wieder eingestellt werden. Alle anderen Einstellungen bleiben dauerhaft erhalten.
 
-Nach einem Stromausfall oder Ausschalten der Wärmepumpe setzt die Bedieneinheit das Estrichtrocknungsprogramm automatisch fort, solange der Spannungsausfall nicht länger als etwa 15 Minuten andauert. Wenn der Strom wiederhergestellt wird, muss das Programm manuell neu gestartet werden.
+Zusätzlich gilt für den Fall, dass ein **Estrichtrocknungsprogramm** aktiv war: Nach einem Stromausfall oder einem Ausschalten der Wärmepumpe setzt die Bedieneinheit das Estrichtrocknungsprogramm automatisch fort, sofern der Spannungsausfall nicht länger andauerte als die Gangreserve der Bedieneinheit (≥ 4 h) oder die eingestellte maximale Unterbrechungsdauer.
 
-Es ist wichtig zu beachten, dass die maximale Temperatur während des Estrichtrocknungsprogramms von der Variante der Inneneinheit abhängt. Es sollte daher vorgenommen werden, sicherzustellen, dass die Anlage vor Kondensat geschützt wird.
+---
+
+- Dokument: Bedienungsanleitung Wärmepumpe, Seite 5, Abschnitt 4.5 „Abschaltung"
+- Dokument: Bedienungsanleitung Wärmepumpe, Seite 12, Abschnitt 5.1.7 „Menü Estrichtrocknung"
 
 ### q16: Wärmepumpe Halle 1, Wie schütze ich die Anlage vor dem Einfrieren?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> Verbrühungsgefahr!
+## Schutz der Anlage vor dem Einfrieren
 
-Die Anlage muss vor Kondensat geschützt sein, um Wärmepumpe Halle 1 vor dem Einfrieren zu schützen. Es ist wichtig, sicherzustellen, dass die maximale Temperatureinstellung der Inneneinheit berücksichtigt wird und eine Mischeinrichtung installiert ist, wenn die Warmwassertemperatur über 60 °C erreicht wird.
+Um die Anlage vor dem Einfrieren zu schützen, sind folgende Punkte zu beachten:
 
-Die maximale Temperaturinstellung hängt von der Variante der Inneneinheit ab. Es muss sichergestellt sein, dass die Anlage vor Kondensat geschützt ist, um Verstopfung und Schäden zu vermeiden.
+### Betriebszustand Normal-Modus beibehalten
+
+> **Standby bedeutet, dass die Anlage komplett ausgeschaltet ist und keine Sicherheitsfunktionen, wie Frostschutz, aktiv sind.**
+
+Die Anlage sollte daher im **Normal-Modus** betrieben werden, da in diesem Zustand die Schutzfunktionen (Frostschutz) aktiv sind. Der **Standby-Modus** eignet sich **nicht** für Betriebspausen in frostgefährdeten Umgebungen, da in diesem Zustand alle automatischen Schutzfunktionen deaktiviert sind.
+
+### Frostschutz-Einstellungen im Menü: Heizen und Kühlen
+
+Im Menü **Heizen und Kühlen** stehen für den **Frostschutz** verschiedene Einstellungen zur Verfügung:
+
+- **Aus**
+- **Raumtemperatur** (nur mit Raumregler)
+- **Außentemperatur**
+- **Raum- und Außentemperatur** (nur mit Raumregler)
+
+Der Frostschutz wird in Abhängigkeit von der hier gewählten Temperatur eingestellt.
+
+Zusätzlich kann über den Menüpunkt **Frostschutz Grenztemp.** eingestellt werden, unter welcher Temperatur der Frostschutz aktiviert werden soll.
+
+---
+
+**Quellen:**
+- Seite 5, Abschnitt: Abschaltung (4.5)
+- Seite 5, Passage 1 (Technische Beschreibung: Betriebszustände)
+- Seite 9, Abschnitt: Menü: Heizen und Kühlen
 
 ### q17: Wärmepumpe Halle 1, Wo passe ich die Heizkurve an?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> **Servicemenü erscheint**  
-> Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
+## Anpassung der Heizkurve
 
-### Schnellstartfunktion für die Wärmepumpe:
-- **Schneller Kompressorstart auswählen**
-- **Ja auswählen**
+Die Heizkurve wird im Menü **Heizen und Kühlen** unter dem Menüpunkt **Heizkreis 1** angepasst. Dort findet sich unter **▶ Heizen** der Unterpunkt **Heizkurve**, der das „Menü zur grafischen Einstellung der Heizkurve" bereitstellt.
 
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
+Zunächst muss die gewünschte **Regelungsart** unter **Heizkurve** ausgewählt werden. Als Auswahl möglich sind:
+- **Außentemperatur geführt**
+- **Außentemperatur mit Fußpunkt**
+- **Einzelraumgeführt**
 
----
+### Beschreibung der Heizkurven-Varianten
 
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
-3. **Schneller Kompressorstart auswählen**  
-   - Ja auswählen
+| Menüpunkt | Einstellintervall |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Heizkurve | Es sind zwei Varianten der Heizkurve für die Regelung entsprechend der Außentemperatur vorhanden: |
+| | ▶ Regelungsart >Außentemperatur geführt: ist eine aufwärts gekrümmte Heizkurve, die auf einer optimierten Zuordnung der Vorlauftemperatur entsprechend der Außentemperatur beruht. Es müssen nur die gewünschte Temperatur und die maximale Temperatur eingestellt werden. Diese Variante ist die Grundeinstellung und eignet sich für gängige Anwendungsfälle. |
+| | ▶ Regelungsart >Außentemperatur mit Fußpunkt: Die Außentemperatur mit Fußpunkt ist eine klassische Heizkurveneinstellung, die verschiedene Optionen bietet, um den individuellen Anforderungen des Gebäudes gerecht zu werden. Diese Heizkurve hat einen Fuß- und einen Endpunkt. Während der Übergangszeit kann der Installateur einen Komfortpunkt einstellen, um die Heizkurve leicht zu erhöhen. |
+| | Der Fußpunkt entspricht der Vorlauftemperatur, die bei einer Außenlufttemperatur von 20 °C erreicht wird. |
+| | Der Endpunkt ist die Vorlauftemperatur, die bei der niedrigsten Außenlufttemperatur in der Region erreicht wird, und beeinflusst demzufolge die Steigung der Heizkurve. |
+| | Der Komfortpunkt ermöglicht die Erhöhung der Vorlauftemperatur in der Übergangszeit Frühling/Herbst. Optional kann der Benutzer bei beiden außentemperaturgeführten Regelungsarten einen Grenzwert für die minimale Vorlauftemperatur einstellen (Einstellung min. Vorlauftemp.= Ein). |
 
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
-
----
-
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
+Zusätzlich können im selben Menü folgende Parameter eingestellt werden:
+- **Max. Temperatur**: Maximale Vorlauftemperatur für die Anlage einstellen.
+- **Minimale Vorlauftemperatur**: Minimale Vorlauftemperatur einstellen, optional.
+- **Raumeinfluss HK**: Faktor, der festlegt, wie stark die gemessene Raumtemperatur die Vorlauftemperatur durch Parallelverschiebung der Heizkurve beeinflussen darf.
 
 ---
 
-### Schnellstartfunktion für die Wärmepumpe
-1. **Schneller Kompressorstart auswählen**
-2. **Ja auswählen**
-
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
-
----
-
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
-
----
-
-### Schnellstartfunktion für die Wärmepumpe
-1. **Schneller Kompressorstart auswählen**
-2. **Ja auswählen**
-
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
-
----
-
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
-
----
-
-### Schnellstartfunktion für die Wärmepumpe
-1. **Schneller Kompressorstart auswählen**
-2. **Ja auswählen**
-
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
-
----
-
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
-
----
-
-### Schnellstartfunktion für die Wärmepumpe
-1. **Schneller Kompressorstart auswählen**
-2. **Ja auswählen**
-
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
-
----
-
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
-
----
-
-### Schnellstartfunktion für die Wärmepumpe
-1. **Schneller Kompressorstart auswählen**
-2. **Ja auswählen**
-
-Die Schnellstartfunktion erhöht die Wärmeanforderung, sodass die Wärmepumpe schnellstmöglich startet.
-
----
-
-### Servicemenü
-1. **Servicemenü erscheint**  
-   - Warten Sie ca. 5 Sekunden, bis das Servicemenü erscheint.
-2. **Anlageneinstellungen auswählen und dann Manuelle Inbetriebnahme**  
-   - Anlageninformationen anzeigen.
-
----
-
-### Schnellstartfunktion für die Wärmepumpe
-1. **Schneller Kompressor
+- Dokument: Bedienungsanleitung Wärmepumpe
+- Seite 5, Abschnitt: Wichtige Einstellungen für den Heizbetrieb
+- Seite 9, Abschnitt: Menü: Heizen und Kühlen (Heizkreis 1 / Heizen)
+- Seite 11, Abschnitt: Heizkurve
 
 ### q18: Wärmepumpe Halle 1, Was muss ich nach Abschluss der Inbetriebnahme im Servicemenü speichern?
 
-**Pass:** ❌
+**Pass:** ✅
 
-Hier sind die relevante Informationen aus den gefundenen Menüpfaden zusammengefasst:
+Nach Abschluss der Inbetriebnahme müssen unbedingt alle Einstellungen gespeichert werden. Dafür ist im Servicemenü auf **Installateureinstell. speichern** zu tippen.
 
-### Um im Sommer in den Kühlbetrieb zu wechseln:
-**Menüpunkt:** Um im Sommer in den Kühlbetrieb zu wechseln, muss einer der Heizkreise für den Kühlbetrieb konfiguriert werden.
-
-**Quelle:** Seite 10
+**Menüpfad:** Servicemenü > Installateureinstell. speichern
 
 ---
 
-Diese Konfiguration ermöglicht es, einen bestimmten Heizkreis (oder die Wärmepumpe) in den Kühlbetrieb zu überführen, wenn die externe Temperatur im Sommer niedriger ist als gewünscht. Dies kann dazu beitragen, Energie zu sparen und das Haus kühler zu halten.
-
-### Verfügbar wenn ein Energy Manager angeschlossen und konfiguriert ist:
-**Menüpunkt:** In diesem Menü sind die Einstellungen für den Energiemanager verfügbar.
-
-**Quelle:** Seite 14
-
----
-
-Dieses Menü ermöglicht es, Energiemanagertechnologien wie Photovoltaik-Energie zu integrieren und effizient zu steuern. Es wird nur in Anwesenheit eines Energy Manager angeschlossen und konfiguriert.
-
-### Einziger verfügbarer Externer Eingang 1:
-**Menüpunkt:** Nur für Externer Eingang 1 verfügbar.
-
-**Quelle:** Seite 20
-
----
-
-Dieser Pfad beschreibt die Verfügbarkeit einer speziellen Funktion nur für den Externer Eingang 1. Es gibt keinen weiteren Eintrag in der Dokumentation, der diesen Pfad explizit verknüpft oder ihn näher erklärt.
-
-Diese Informationen können als Ergänzung zu den vorherigen Menüpfaden verwendet werden, um eine detailliertere Verwendung und Verfügbarkeit von Funktionen zu verstehen.
+**Quellen:**
+- Dokument, Seite 5, Abschnitt: Weitere Einstellungen für die Inbetriebnahme (Kapitel 4.2)
+- Gefundene Menüpfade: Servicemenü > Installateureinstell. speichern (Seite 5)
 
 ### q19: Wie verbinde ich die Wärmepumpe mit der Bosch-App?
 
@@ -484,12 +385,6 @@ Mir liegt dazu keine Information vor.
 
 ### q20: Wärmepumpe Halle 1, Wie integriere ich das Gerät in ein KNX-Bussystem?
 
-**Pass:** ❌
+**Pass:** ✅
 
-> GEFAHR: Es ist wichtig sicherzustellen, dass der Heiz- und Kühlkreis korrekt konfiguriert sind.
-
-Um das Gerät in ein KNX-Bussystem zu integrieren, müssen die spezifischen Einstellungen für den Heizkreis im Menü Heizung / Kühlung vorgenommen werden. In diesem Menü können Sie die Wärmepumpe mit dem KNX-Bus verbinden und konfigurieren.
-
-Die Konfiguration der Komponenten der Anlage erfolgt in den entsprechenden Menüs, sodass alle spezifischen Einstellungen für die Wärmepumpe im Menü Heizung / Kühlung vorgenommen werden müssen. Es ist wichtig zu beachten, dass nur bestimmte Länder diese Funktion verfügbar machen.
-
-Die maximale Temperatureinstellung hängt von der Variante der Inneneinheit ab und muss sichergestellt werden, um die Anlage vor Kondensat zu schützen.
+Mir liegt dazu keine Information vor.

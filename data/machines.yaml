@@ -4,6 +4,7 @@
 machines:
   - name: "Wärmepumpe Halle 1"
     aliases:
+      - "Wärmepumpe Halle 1"
       - "UI 800"
       - "WP Halle 1"
       - "Bosch WP"
