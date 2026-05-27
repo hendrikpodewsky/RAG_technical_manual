@@ -17,6 +17,8 @@ class AnswerResult:
     menu_hits: list[MenuPathHit] = field(default_factory=list)
     needs_clarification: bool = False
     clarification_prompt: str | None = None
+    table_chunks: list[SearchResult] = field(default_factory=list)
+    image_ids: list[str] = field(default_factory=list)
 
 
 class Orchestrator:
@@ -57,9 +59,7 @@ class Orchestrator:
         if resolve_result.ambiguous or (
             resolve_result.machine is None and resolve_result.confidence < self._threshold
         ):
-            candidates = ", ".join(
-                m.name for m in resolve_result.candidates[:3]
-            )
+            candidates = ", ".join(m.name for m in resolve_result.candidates[:3])
             return AnswerResult(
                 answer="",
                 intent=intent_result,
@@ -90,10 +90,23 @@ class Orchestrator:
 
         answer_text = self._generator.generate(question, results, menu_hits)
 
+        # Collect tables and images from top results for UI attachment
+        table_chunks = [r for r in results if r.payload.get("chunk_type") == "table"]
+        seen_image_ids: list[str] = []
+        for r in results:
+            img_id = r.payload.get("image_id")
+            if img_id and img_id not in seen_image_ids:
+                seen_image_ids.append(img_id)
+            for img_id in r.payload.get("related_image_ids") or []:
+                if img_id not in seen_image_ids:
+                    seen_image_ids.append(img_id)
+
         return AnswerResult(
             answer=answer_text,
             intent=intent_result,
             machine_namespace=namespace,
             sources=results,
             menu_hits=menu_hits,
+            table_chunks=table_chunks,
+            image_ids=seen_image_ids,
         )
