@@ -10,8 +10,8 @@ from wissenssystem.agent.intent_classifier import IntentClassifier
 from wissenssystem.agent.machine_resolver import MachineResolver
 from wissenssystem.agent.orchestrator import AnswerResult, Orchestrator
 from wissenssystem.config import get_settings
-from wissenssystem.providers.local_blob_store import LocalBlobStore
 from wissenssystem.providers.llm_factory import build_llm
+from wissenssystem.providers.local_blob_store import LocalBlobStore
 from wissenssystem.providers.qdrant_store import QdrantVectorStore
 from wissenssystem.providers.sentence_transformer_embeddings import (
     SentenceTransformerEmbeddingProvider,
@@ -64,7 +64,8 @@ def _load_resources():
         intent_classifier=IntentClassifier(llm),
         machine_resolver=MachineResolver(registry, llm_provider=llm),
         hybrid_search=HybridSearch(
-            vector_store, embedder,
+            vector_store,
+            embedder,
             top_k=cfg.retrieval_top_k,
             bm25_dir=cfg.data_dir / "bm25",
             llm_provider=llm,
@@ -94,6 +95,29 @@ def _replace_image_refs(text: str, blob_store: LocalBlobStore) -> str:
         return _render_image_tag(match.group(1), blob_store)
 
     return re.sub(r"\[BILD:([^\]]+)\]", replace, text)
+
+
+def _render_attachments(result: AnswerResult, blob_store: LocalBlobStore) -> None:
+    """Render table and image attachments that back the answer."""
+    if result.table_chunks:
+        with st.expander(f"Tabellen ({len(result.table_chunks)})", expanded=True):
+            for r in result.table_chunks:
+                ref = r.payload.get("source_ref", {})
+                page = ref.get("page", "?") if isinstance(ref, dict) else "?"
+                section_title = r.payload.get("section_title") or ""
+                caption = f"Seite {page}" + (f" — {section_title}" if section_title else "")
+                st.caption(caption)
+                table_text = r.payload.get("text", "")
+                st.markdown(table_text)
+
+    if result.image_ids:
+        with st.expander(f"Bilder ({len(result.image_ids)})", expanded=True):
+            for img_id in result.image_ids:
+                try:
+                    data = blob_store.get(img_id)
+                    st.image(data, use_container_width=True)
+                except Exception:
+                    st.caption(f"*Bild {img_id} nicht verfügbar*")
 
 
 def _render_sources(result: AnswerResult) -> None:
@@ -170,6 +194,7 @@ def main() -> None:
         has_images = "[BILD:" in result.answer
 
         st.markdown(rendered, unsafe_allow_html=has_images)
+        _render_attachments(result, blob_store)
         _render_sources(result)
 
         st.session_state.history.append(
