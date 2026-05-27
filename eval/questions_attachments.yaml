@@ -1,0 +1,71 @@
+# Eval-Set: Anhang-Test (Tabellen, Diagramme, Bilder)
+# Ziel: Prüfen, ob die neuen Attachment-Features (table_chunks + image_ids)
+# korrekt ausgelöst und in der UI angezeigt werden.
+# Alle 5 Fragen beziehen sich auf die Bosch UI 800 (cfg__bosch__ui800__nf87-02__de).
+
+questions:
+- id: a01
+  question: "Wärmepumpe Halle 1, Was bedeuten die verschiedenen LED-Farben und\
+    \ welche Betriebszustände signalisieren sie jeweils?"
+  expected_machine: cfg__bosch__ui800__nf87-02__de
+  expected_topics:
+    - Grün
+    - Rot
+    - Störung
+    - Betriebsstatus
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+  # Erwarteter Anhang: Tabelle "Status-LED" (Seite 3) + MU100-Modul-Schema
+
+- id: a02
+  question: "Wärmepumpe Halle 1, Wie stelle ich die Heizkurve ein und welche\
+    \ Parameter kann ich dabei anpassen?"
+  expected_machine: cfg__bosch__ui800__nf87-02__de
+  expected_topics:
+    - Heizkurve
+    - Außentemperatur
+    - Vorlauftemperatur
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+  # Erwarteter Anhang: Heizkurven-Einstellungstabelle (Seite 11) + Heizkurven-Schaubild
+
+- id: a03
+  question: "Wärmepumpe Halle 1, Wie läuft das Estrichtrocknungsprogramm ab\
+    \ und welche Temperaturen werden während des Programms erreicht?"
+  expected_machine: cfg__bosch__ui800__nf87-02__de
+  expected_topics:
+    - Estrich
+    - Temperatur
+    - Programm
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+  # Erwarteter Anhang: Estrichtrocknung-Tabelle (Tab. 10, Seite 13) + Kennfeld-Diagramm (Seite 12)
+
+- id: a04
+  question: "Wärmepumpe Halle 1, Wie ist der Kältekreislauf der Wärmepumpe\
+    \ aufgebaut und welche Hauptkomponenten sind enthalten?"
+  expected_machine: cfg__bosch__ui800__nf87-02__de
+  expected_topics:
+    - Kältekreis
+    - Kompressor
+    - Verflüssiger
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+  # Erwarteter Anhang: Wärmepumpen-Kreislaufschema (Seite 18) + Luft-Wasser-Schema (Seite 1)
+
+- id: a05
+  question: "Wärmepumpe Halle 1, Welche Einstellmöglichkeiten gibt es für\
+    \ eine angeschlossene Solarthermieanlage im Servicemenü?"
+  expected_machine: cfg__bosch__ui800__nf87-02__de
+  expected_topics:
+    - Solar
+    - Kollektor
+    - Speicher
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+  # Erwarteter Anhang: Solar-Einstellungstabellen (Tab. 12/13, Seite 14) + Menü-Screenshot
