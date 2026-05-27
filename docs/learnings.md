@@ -136,12 +136,24 @@ Halluzination (System antwortet, obwohl kein Dokument das abdeckt) ist ein ernst
 
 ### Dekorative Bild-Chunks müssen nach dem Ingest bereinigt werden
 
-Docling extrahiert alle Bilder aus dem PDF — auch rein dekorative Elemente: Hersteller-Logos, Info-Icons (`ℹ`), Warnschilder-Symbole, Stift-Icons, QR-Codes. Diese Chunks landen im Vektorindex und werden bei Retrieval-Anfragen mitgeliefert.
+Docling extrahiert alle Bilder aus dem PDF — auch rein dekorative Elemente: Hersteller-Logos, Info-Icons (`ℹ`), Warnschilder-Symbole, QR-Codes. Diese Chunks landen im Vektorindex und werden bei Retrieval-Anfragen mitgeliefert.
 
 - **Problem:** Dekorative Bild-Chunks erhöhen den Rausch-Anteil im Retrieval, werden als Bild-Anhang in der UI angezeigt, und verwirren den Nutzer (z.B. ein „i"-Icon als Antwort auf eine technische Frage)
 - **Fix (kurzfristig):** Nach dem Ingest alle Bild-Chunks prüfen und Chunks mit dekorativen `description`-Schlagwörtern aus Qdrant + BlobStore löschen. Keyword-Liste: `"Herstellerlogo"`, `"Markenzeichen"`, `"Ikonografisches Symbol"`, `"Informationssymbol"`, `"Warnsymbol"`, `"Stift-/Marker-Symbol"` u.ä.
-- **Fix (langfristig):** Die Ingestion-Pipeline sollte dekorative Bilder beim Beschreiben per Vision-LLM bereits erkennen und nicht indexieren. Kriterium: Bilder kleiner als ~50×50 px oder mit beschreibung die nur aus Symbolen/Logos besteht, überspringen.
+- **Fix (langfristig):** Die Ingestion-Pipeline sollte dekorative Bilder beim Beschreiben per Vision-LLM bereits erkennen und nicht indexieren. Kriterium: Bilder kleiner als ~50×50 px oder mit Beschreibung, die nur aus Symbolen/Logos besteht, überspringen.
 - **Bosch UI 800:** 40 von 69 Bild-Chunks waren dekorativ (58 %) — nur 29 technische Diagramme/Schemata blieben übrig
+
+### Ein visueller Audit aller Bild-Chunks ist nach jedem Ingest zwingend
+
+Keyword-Filter auf der `description` sind **nicht ausreichend**. Das Vision-LLM benennt kleine Info-Icons (`ℹ`) systematisch als „Menüschnittstelle", „Konfigurationsanleitung" oder „Interface-Screenshot" — Beschreibungen, die keinem Dekorativ-Keyword entsprechen, aber ebenfalls wertlos sind.
+
+- **Befund (Bosch UI 800, zweiter Audit):** 16 von 28 verbleibenden Bild-Chunks (57 %) waren entweder Info-Icons mit falscher Beschreibung, QR-Codes, CE-Symbole oder Warnzeichen. Übrig blieben 12 echte technische Diagramme.
+- **Fehlertypen der Vision-LLM-Fehlbeschreibungen:**
+  - Info-Icon (`ℹ`) → beschrieben als „Menüschnittstelle Solarthermieanlage", „Warmwasserbetrieb-Konfigurationsanleitung", „PV-System Einstellungsmenü" usw.
+  - QR-Code → beschrieben als „Luft-Wasser-Wärmepumpen-Schema"
+  - Warndreieck → beschrieben als „MU100-Modul (Schematische Darstellung)"
+- **Pflicht-Schritt:** Nach jedem Ingest alle Bild-Chunks mit Vision durchsehen und nicht-technische Chunks vor dem Go-Live aus Qdrant + BlobStore löschen. Skript: Chunk-IDs per `client.scroll()` holen, Blob laden, visuell oder per LLM prüfen, `client.delete()` + `blob_path.unlink()`.
+- **Keyword-Filter im Orchestrator** (`_DECORATIVE_KEYWORDS`) bleibt als Sicherheitsnetz, ersetzt aber den Audit nicht.
 
 ---
 
