@@ -155,6 +155,22 @@ Keyword-Filter auf der `description` sind **nicht ausreichend**. Das Vision-LLM 
 - **Pflicht-Schritt:** Nach jedem Ingest alle Bild-Chunks mit Vision durchsehen und nicht-technische Chunks vor dem Go-Live aus Qdrant + BlobStore löschen. Skript: Chunk-IDs per `client.scroll()` holen, Blob laden, visuell oder per LLM prüfen, `client.delete()` + `blob_path.unlink()`.
 - **Keyword-Filter im Orchestrator** (`_DECORATIVE_KEYWORDS`) bleibt als Sicherheitsnetz, ersetzt aber den Audit nicht.
 
+### Text-Screenshots dürfen nicht als Bild-Chunks indexiert werden
+
+Das Vision-LLM extrahiert auch Screenshots von Menü-Oberflächen oder Tabellen-Seiten als Bilder. Diese enthalten zwar visuell denselben Text wie die zugehörigen Prosa/Tabellen-Chunks — werden aber als Bild-Attachment angezeigt, obwohl der Inhalt bereits in der Antwort steht.
+
+- **Problem:** Ein Screenshot der Heizkurve-Einstellungsseite rankt für „Heizkurve" sehr hoch (viel Text), verdrängt dabei die echten Kurvendiagramme aus dem Top-N-Fenster, und zeigt dem Nutzer einen nutzlosen Textblock als Bild.
+- **Erkennungsmerkmal:** Bild-Chunk, dessen `description` ausschließlich aus Fließtext / Tabelleninhalten besteht — kein Diagramm, keine Achsen, keine technischen Symbole.
+- **Fix:** Beim Audit gezielt auf Text-Screenshot-Chunks prüfen und löschen. Langfristig: Vision-LLM-Prompt um Kriterium ergänzen — „Wenn das Bild ausschließlich Text oder Tabellen enthält, nicht indexieren."
+
+### Vision-LLM braucht Dokumentkontext für korrekte Beschreibungen
+
+Ohne Kontext beschreibt das Vision-LLM was es sieht, nicht was es bedeutet. Ein Heizkurven-Diagramm wird als „Ausgangstemperatur-Diagramm" beschrieben — „Heizkurve" kommt nicht vor, obwohl es im Bildtitel steht. Das Embedding trifft dann nicht auf Nutzerfragen wie „Wie stelle ich die Heizkurve ein?".
+
+- **Fix (Qdrant-Nachbearbeitung):** Beschreibungen manuell oder per Skript mit dem Section-Titel prefixen: `f"{section_title} – {original_description}"`. Dadurch enthält die Beschreibung das fachliche Keyword.
+- **Fix (Ingestion):** Den Vision-LLM-Prompt mit dem aktuellen Abschnittstitel versehen: „Du beschreibst ein Bild aus dem Abschnitt ‚{section_title}'." — das Modell übernimmt dann den Kontext in die Beschreibung.
+- **Konsequenz für Retrieval:** `_TOP_N_FOR_IMAGES` muss größer sein als die Anzahl der Prosa-Chunks vor dem ersten Bild-Chunk (derzeit 8). Bild-Chunks ranken strukturell hinter Prosa-Chunks, weil Prosa mehr queryrelevanten Text enthält.
+
 ---
 
 ## 7. Architektur / Betrieb

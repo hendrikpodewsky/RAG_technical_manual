@@ -26,7 +26,7 @@ _DECORATIVE_KEYWORDS = (
 )
 
 _MAX_IMAGE_ATTACHMENTS = 3
-_TOP_N_FOR_IMAGES = 3  # only consider the top-N reranked results
+_TOP_N_FOR_IMAGES = 8  # look at top-N reranked results; image chunks rank below prose
 
 
 def _extract_image_ids(results: list[SearchResult]) -> list[str]:
