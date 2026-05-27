@@ -7,6 +7,48 @@ from wissenssystem.retrieval.hybrid_search import HybridSearch, SearchResult
 from wissenssystem.retrieval.menu_path_search import MenuPathHit, MenuPathSearch
 from wissenssystem.retrieval.reranker import Reranker
 
+# Image chunks whose description matches these substrings are decorative
+# (logos, icons, warning symbols) and should not be shown as attachments.
+_DECORATIVE_KEYWORDS = (
+    "Logo",
+    "Markenzeichen",
+    "Herstellerlogo",
+    "Unternehmenslogo",
+    "Wortmarke",
+    "Ikonografisches Symbol",
+    "Funktionssymbol / Icon",
+    "Symboldarstellung",
+    "Warnsymbol",
+    "Warnschild-Symbol",
+    "Informationssymbol",
+    "Hinweissymbol",
+    "Info-Icon",
+)
+
+_MAX_IMAGE_ATTACHMENTS = 3
+_TOP_N_FOR_IMAGES = 3  # only consider the top-N reranked results
+
+
+def _extract_image_ids(results: list[SearchResult]) -> list[str]:
+    """Return up to _MAX_IMAGE_ATTACHMENTS relevant image IDs from top results.
+
+    Only looks at the top _TOP_N_FOR_IMAGES results, skips decorative images
+    (logos, icons, symbols), and deduplicates.
+    """
+    seen: list[str] = []
+    for r in results[:_TOP_N_FOR_IMAGES]:
+        img_id = r.payload.get("image_id")
+        if not img_id:
+            continue
+        desc = r.payload.get("description", "")
+        if any(kw in desc for kw in _DECORATIVE_KEYWORDS):
+            continue
+        if img_id not in seen:
+            seen.append(img_id)
+        if len(seen) >= _MAX_IMAGE_ATTACHMENTS:
+            break
+    return seen
+
 
 @dataclass
 class AnswerResult:
@@ -17,7 +59,6 @@ class AnswerResult:
     menu_hits: list[MenuPathHit] = field(default_factory=list)
     needs_clarification: bool = False
     clarification_prompt: str | None = None
-    table_chunks: list[SearchResult] = field(default_factory=list)
     image_ids: list[str] = field(default_factory=list)
 
 
@@ -90,16 +131,7 @@ class Orchestrator:
 
         answer_text = self._generator.generate(question, results, menu_hits)
 
-        # Collect tables and images from top results for UI attachment
-        table_chunks = [r for r in results if r.payload.get("chunk_type") == "table"]
-        seen_image_ids: list[str] = []
-        for r in results:
-            img_id = r.payload.get("image_id")
-            if img_id and img_id not in seen_image_ids:
-                seen_image_ids.append(img_id)
-            for img_id in r.payload.get("related_image_ids") or []:
-                if img_id not in seen_image_ids:
-                    seen_image_ids.append(img_id)
+        image_ids = _extract_image_ids(results)
 
         return AnswerResult(
             answer=answer_text,
@@ -107,6 +139,5 @@ class Orchestrator:
             machine_namespace=namespace,
             sources=results,
             menu_hits=menu_hits,
-            table_chunks=table_chunks,
-            image_ids=seen_image_ids,
+            image_ids=image_ids,
         )

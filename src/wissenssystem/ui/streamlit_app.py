@@ -98,26 +98,16 @@ def _replace_image_refs(text: str, blob_store: LocalBlobStore) -> str:
 
 
 def _render_attachments(result: AnswerResult, blob_store: LocalBlobStore) -> None:
-    """Render table and image attachments that back the answer."""
-    if result.table_chunks:
-        with st.expander(f"Tabellen ({len(result.table_chunks)})", expanded=True):
-            for r in result.table_chunks:
-                ref = r.payload.get("source_ref", {})
-                page = ref.get("page", "?") if isinstance(ref, dict) else "?"
-                section_title = r.payload.get("section_title") or ""
-                caption = f"Seite {page}" + (f" — {section_title}" if section_title else "")
-                st.caption(caption)
-                table_text = r.payload.get("text", "")
-                st.markdown(table_text)
-
-    if result.image_ids:
-        with st.expander(f"Bilder ({len(result.image_ids)})", expanded=True):
-            for img_id in result.image_ids:
-                try:
-                    data = blob_store.get(img_id)
-                    st.image(data, use_container_width=True)
-                except Exception:
-                    st.caption(f"*Bild {img_id} nicht verfügbar*")
+    """Render relevant image attachments below the answer."""
+    if not result.image_ids:
+        return
+    with st.expander(f"Bilder ({len(result.image_ids)})", expanded=True):
+        for img_id in result.image_ids:
+            try:
+                data = blob_store.get(img_id)
+                st.image(data, use_container_width=True)
+            except Exception:
+                st.caption(f"*Bild {img_id} nicht verfügbar*")
 
 
 def _render_sources(result: AnswerResult) -> None:
