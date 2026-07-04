@@ -9,6 +9,37 @@ Qdrant · Docling · Streamlit · SQLite
 
 ---
 
+## Beispiele
+
+Das System ist bewusst auf **möglichst umfängliche und belastbare Antworten** ausgelegt,
+damit Nutzer mit möglichst wenigen Rückfragen bestmöglich informiert sind.
+
+### Vollständige Tabellenextraktion
+
+Steht die angefragte Information in der Anleitung als Tabelle, gibt das System nicht nur
+die angefragte Zeile zurück, sondern die gesamte Tabelle. So bekommt der Nutzer den vollen
+Kontext (hier: alle LED-Farben und ihre Bedeutung) direkt mitgeliefert, statt für jede
+Farbe erneut nachfragen zu müssen.
+
+![Tabellenextraktion und fehlende Information](docs/screenshots/01_tabellenextraktion_und_fehlende_info.png)
+
+### Keine Antwort ohne Beleg im Handbuch
+
+Ist eine Information nicht im Handbuch enthalten (im Beispiel oben: Verbindung mit der
+Bosch-App), antwortet das System explizit mit "Mir liegt dazu keine Information vor"
+statt eine plausibel klingende, aber erfundene Antwort zu generieren.
+
+### Automatische Einbindung zugehöriger Grafiken
+
+Zu manchen Themen — hier die Heizkurve — gehören Diagramme in der Originalanleitung.
+Diese Bild-/Grafikpassagen werden separat gespeichert, dem passenden Textabschnitt
+zugeordnet und bei einer entsprechenden Anfrage automatisch mit ausgegeben.
+
+![Heizkurve – Textantwort](docs/screenshots/02_heizkurve_antwort.png)
+![Heizkurve – zugehörige Grafiken](docs/screenshots/03_heizkurve_grafiken.png)
+
+---
+
 ## Voraussetzungen
 
 | Tool | Version | Wozu |
