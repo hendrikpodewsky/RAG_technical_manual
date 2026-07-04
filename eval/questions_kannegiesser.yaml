@@ -1,0 +1,194 @@
+questions:
+- id: kq01
+  question: "PowerTrans, Mit welcher Durchflussmenge wird die Taktwaschanlage üblicherweise befüllt?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "9"
+  - "10"
+  - Liter
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq02
+  question: "PowerTrans, Wovon sind die Heizzeiten der Anlage abhängig?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Dampfdruck
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq03
+  question: "PowerTrans, Welche Elemente befinden sich am Bedienpult der Anlage?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - NOT-AUS
+  - Bedienpult
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq04
+  question: "PowerTrans, Wann müssen die Badstände der einzelnen Sektionen eingestellt werden?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Erstinbetriebnahme
+  - Badstand
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq05
+  question: "PowerTrans, Welche Temperatur sollte in der Klarwaschzone für die thermische Desinfektion erreicht werden?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "90"
+  - Desinfektion
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq06
+  question: "PowerTrans, Wie viele Anschlussmuffen hat jede Außentrommel serienmäßig für Waschmittel und Hilfsmittel?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "5"
+  - Außentrommel
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq07
+  question: "PowerTrans, Bis zu welcher Temperatur darf Aktivchlor als Bleichmittel eingesetzt werden?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "70"
+  - Aktivchlor
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq08
+  question: "PowerTrans, Wie lange sollte die Einwirkdauer bei enzymatischen Verfahren mindestens betragen?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "10"
+  - Einwirkdauer
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq09
+  question: "PowerTrans, Welche besondere Ausstattung hat die Krankenhaus-Version der PowerTrans?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Doppeltrommel
+  - Krankenhaus
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq10
+  question: "PowerTrans, Wie wird die Innentrommel angetrieben?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Drehstrom
+  - Getriebemotor
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq11
+  question: "PowerTrans, Welche Frischwassermenge wird für die Spülzone bei normalverschmutzter Ware empfohlen?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "4"
+  - "6"
+  - Spülzone
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq12
+  question: "PowerTrans, Was bewirkt eine Temperaturerhöhung von 10°C auf die chemische Reaktionsgeschwindigkeit?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - doppelte
+  - Reaktionsgeschwindigkeit
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq13
+  question: "PowerTrans, Welches Flottenverhältnis wird für Kammer 1 bei voluminöser Ware empfohlen?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - "1:4"
+  - "1:6"
+  - Kammer 1
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq14
+  question: "PowerTrans, Wozu dient der Permanent-Spülstrom und wie wird er geregelt?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Proportional
+  - Spülstrom
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq15
+  question: "PowerTrans, Welche Dosiermengeneinheit wird in der Dosiertabelle verwendet?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Milliliter
+  - Kilogramm
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq16
+  question: "PowerTrans, Wie programmiere ich eine WLAN-Verbindung für die Anlage?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics: []
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: false
+
+- id: kq17
+  question: "PowerTrans, Wie führe ich ein Software-Update der Steuerung durch?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics: []
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: false
+
+- id: kq18
+  question: "PowerTrans, Wie ersetze ich einen defekten Drucksensor?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics: []
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: false
+
+- id: kq19
+  question: "PowerTrans, Welche Wasserqualitätsanforderungen müssen für den Betrieb erfüllt sein?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics:
+  - Härte
+  - enthärtet
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: true
+
+- id: kq20
+  question: "PowerTrans, Wie integriere ich die Anlage in ein Gebäudeleitsystem via BACnet?"
+  expected_machine: cfg__kannegiesser__powertrans__vt-rev1__de
+  expected_topics: []
+  expected_safety_quote: null
+  expected_menu_path: null
+  should_be_answerable: false

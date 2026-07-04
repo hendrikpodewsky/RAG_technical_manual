@@ -38,6 +38,7 @@ class EvalResult:
     passed: bool
     failures: list[str] = field(default_factory=list)
     latency_s: float = 0.0
+    image_count: int = 0
 
 
 def _check(result: AnswerResult, question: dict) -> tuple[bool, list[str]]:
@@ -95,7 +96,8 @@ def _build_orchestrator(cfg, registry) -> Orchestrator:
         intent_classifier=IntentClassifier(llm),
         machine_resolver=MachineResolver(registry, llm_provider=llm),
         hybrid_search=HybridSearch(
-            vector_store, embedder,
+            vector_store,
+            embedder,
             top_k=cfg.retrieval_top_k,
             bm25_dir=cfg.data_dir / "bm25",
             llm_provider=llm,
@@ -116,14 +118,17 @@ def _md_report(results: list[EvalResult]) -> str:
         "# Eval-Report\n",
         f"**Score: {passed}/{total} ({score:.0f}%)**\n",
         "",
-        "| ID | Frage | Pass | Latenz | Fehler |",
-        "|----|-------|------|--------|--------|",
+        "| ID | Frage | Pass | Bilder | Latenz | Fehler |",
+        "|----|-------|------|--------|--------|--------|",
     ]
     for r in results:
         status = "✅" if r.passed else "❌"
         failures = "; ".join(r.failures) if r.failures else "—"
         q = r.question[:60] + "…" if len(r.question) > 60 else r.question
-        lines.append(f"| {r.question_id} | {q} | {status} | {r.latency_s:.1f}s | {failures} |")
+        lines.append(
+            f"| {r.question_id} | {q} | {status} | {r.image_count}"
+            f" | {r.latency_s:.1f}s | {failures} |"
+        )
 
     lines += [
         "",
@@ -177,8 +182,9 @@ def main() -> None:
         latency = time.perf_counter() - t0
 
         passed, failures = _check(result, q)  # type: ignore[arg-type]
+        image_count = len(getattr(result, "image_ids", []))
         icon = "✅" if passed else "❌"
-        print(f"{icon} {q['id']}: {q['question'][:60]}")
+        print(f"{icon} {q['id']}: {q['question'][:60]}  [bilder={image_count}]")
         if failures:
             for f in failures:
                 print(f"     → {f}")
@@ -191,6 +197,7 @@ def main() -> None:
                 passed=passed,
                 failures=failures,
                 latency_s=latency,
+                image_count=image_count,
             )
         )
 
