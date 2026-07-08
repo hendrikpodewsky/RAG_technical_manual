@@ -4,8 +4,8 @@ Agentisches RAG-System für Maschinen-Bedienungsanleitungen.
 Nutzer fragen in natürlicher Sprache; das System antwortet mit Text und Originalbildern
 aus dem maschinenspezifischen Wissensspeicher.
 
-**Stack:** Python ≥ 3.11 · Ollama (qwen2.5:3b / moondream2) · sentence-transformers ·
-Qdrant · Docling · Streamlit · SQLite
+**Stack:** Python ≥ 3.11 · Anthropic Claude (LLM + Vision; Ollama als lokaler Fallback) ·
+sentence-transformers (`multilingual-e5-large`) · Qdrant · Docling · Streamlit · SQLite
 
 ---
 

@@ -1,6 +1,6 @@
 # ADR-005: Lokales LLM via Ollama (On-Prem-first)
 
-**Status:** Akzeptiert  
+**Status:** Superseded durch [ADR-006](ADR-006-anthropic-als-default-llm.md)  
 **Datum:** 2026-05
 
 ## Kontext
