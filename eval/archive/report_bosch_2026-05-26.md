@@ -1,4 +1,6 @@
-# Eval-Report
+# Eval-Report (Archiv, Stand 2026-05-26)
+
+> ⚠️ **Veralteter Zwischenstand** — abgelöst durch [`eval/report.md`](../report.md) (20/20, bestätigt 2026-05-27). Aufbewahrt zur Dokumentation des Entwicklungsverlaufs.
 
 **Score: 14/20 (70%)**
 
