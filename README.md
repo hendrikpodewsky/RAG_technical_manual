@@ -45,10 +45,11 @@ zugeordnet und bei einer entsprechenden Anfrage automatisch mit ausgegeben.
 | Tool | Version | Wozu |
 |------|---------|------|
 | [uv](https://docs.astral.sh/uv/) | ≥ 0.4 | Dependency-Management |
-| [Ollama](https://ollama.com/) | ≥ 0.3 | LLM & Vision lokal |
+| Anthropic API-Key | — | Default für LLM & Vision (`ANTHROPIC_API_KEY` in `.env`) |
+| [Ollama](https://ollama.com/) (optional) | ≥ 0.3 | Lokaler Fallback ohne API-Key (`LLM_PROVIDER=ollama`, s. ADR-006) |
 | Docker (optional) | — | Qdrant persistent; ohne Docker läuft Qdrant im Arbeitsspeicher |
 
-Modelle einmalig herunterladen:
+Nur für den Ollama-Fallback — Modelle einmalig herunterladen:
 
 ```bash
 ollama pull qwen2.5:3b
@@ -63,7 +64,8 @@ ollama pull moondream2
 # 1. Dependencies installieren
 uv sync
 
-# 2. Umgebungsvariablen anlegen (Defaults funktionieren ohne Änderungen)
+# 2. Umgebungsvariablen anlegen — ANTHROPIC_API_KEY eintragen
+#    (oder LLM_PROVIDER=ollama für den rein lokalen Fallback)
 cp .env.example .env
 
 # 3. Qdrant starten (optional — fällt sonst auf In-Memory-Modus zurück)
