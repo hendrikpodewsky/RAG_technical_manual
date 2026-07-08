@@ -11,24 +11,26 @@ wissenssystem/
 ├── ARCHITECTURE.md
 ├── TASKS.md
 ├── README.md
+├── CLAUDE.md
 ├── pyproject.toml
 ├── .env.example
 ├── .gitignore
+├── debug_query.py                # Trace-Tool: eine Query durch alle Pipeline-Stufen
 │
 ├── src/wissenssystem/
 │   ├── __init__.py
 │   ├── config.py                 # pydantic-settings, lädt .env
+│   ├── logging_setup.py          # structlog-Konfiguration
 │   │
 │   ├── domain/                   # reine Datenklassen, keine I/O
-│   │   ├── __init__.py
 │   │   ├── chunk.py              # TextChunk, ImageChunk
 │   │   ├── machine.py            # Machine, Configuration
 │   │   ├── menu_path.py          # MenuPath, MenuNode
+│   │   ├── namespace.py          # build_namespace / parse_namespace
 │   │   ├── source.py             # SourceDocument, SourceRef
 │   │   └── safety.py             # SafetyLevel, SafetyNotice
 │   │
 │   ├── interfaces/               # Protocols (austauschbare Adapter)
-│   │   ├── __init__.py
 │   │   ├── document_parser.py
 │   │   ├── llm_provider.py
 │   │   ├── vision_provider.py
@@ -37,77 +39,79 @@ wissenssystem/
 │   │   └── blob_store.py
 │   │
 │   ├── providers/                # konkrete Implementierungen
-│   │   ├── __init__.py
-│   │   ├── docling_parser.py
-│   │   ├── ollama_provider.py        # LLM + Vision
+│   │   ├── docling_parser.py             # Default-Parser (ADR-002)
+│   │   ├── claude_vision_parser.py       # optionaler Seiten-Parser via Claude Vision
+│   │   ├── claude_vision_menu_extractor.py  # Menüpfade aus Seiten-Screenshots
+│   │   ├── anthropic_provider.py         # LLM + Vision, Default (ADR-006)
+│   │   ├── ollama_provider.py            # LLM + Vision, Fallback (ADR-005)
+│   │   ├── llm_factory.py                # Auswahl über LLM_PROVIDER
 │   │   ├── sentence_transformer_embeddings.py
+│   │   ├── ollama_embeddings.py
+│   │   ├── embedder_factory.py           # Auswahl über Modellnamen
 │   │   ├── qdrant_store.py
 │   │   └── local_blob_store.py
 │   │
 │   ├── ingestion/
-│   │   ├── __init__.py
 │   │   ├── pipeline.py           # orchestriert die Ingest-Schritte
-│   │   ├── chunker.py            # semantisches Chunking
+│   │   ├── chunker.py            # hierarchisches Parent-Child-Chunking
 │   │   ├── image_describer.py    # Vision-LLM Beschreibungen
 │   │   ├── safety_detector.py    # erkennt GEFAHR/WARNUNG/etc.
 │   │   ├── menu_path_extractor.py
+│   │   ├── hyde_generator.py     # HyDE-Fragen fürs Retrieval
 │   │   └── metadata.py
 │   │
 │   ├── registry/
-│   │   ├── __init__.py
 │   │   ├── machine_registry.py   # SQLite im PoC
 │   │   └── schema.sql
 │   │
 │   ├── retrieval/
-│   │   ├── __init__.py
-│   │   ├── hybrid_search.py      # Text + Bildbeschreibung, re-rank
+│   │   ├── hybrid_search.py      # Dense + BM25, RRF-Fusion
+│   │   ├── bm25_index.py         # Keyword-Index mit Light-Stemming (Deutsch)
 │   │   ├── menu_path_search.py   # strukturierte Suche
 │   │   └── reranker.py
 │   │
 │   ├── agent/
-│   │   ├── __init__.py
 │   │   ├── intent_classifier.py
 │   │   ├── machine_resolver.py
 │   │   ├── answer_generator.py
 │   │   └── orchestrator.py       # zweistufiger Ablauf
 │   │
 │   ├── ui/
-│   │   ├── __init__.py
 │   │   └── streamlit_app.py
 │   │
 │   └── cli/
-│       ├── __init__.py
 │       ├── ingest.py             # `python -m wissenssystem.cli.ingest`
-│       └── ask.py                # `python -m wissenssystem.cli.ask`
+│       ├── inspect.py            # Chunks eines Namespace inspizieren
+│       └── seed_registry.py      # Registry aus data/machines.yaml befüllen
 │
 ├── prompts/                      # versionierte Prompts (keine Hardcodings!)
-│   ├── intent_classification.md
-│   ├── machine_resolution.md
-│   ├── answer_generation.md
-│   ├── image_description.md
-│   └── safety_check.md
+│                                 # ein .md pro LLM-Aufgabe: Intent, Antwort, HyDE,
+│                                 # Reranker, Vision-Parsing, Menüpfad-Extraktion, …
 │
 ├── data/
+│   ├── machines.yaml             # Registry-Seed (committet)
 │   ├── sources/                  # Original-PDFs (nicht im Repo)
-│   ├── blobs/                    # extrahierte Bilder
-│   └── registry.db               # SQLite, nicht im Repo
+│   ├── blobs/                    # extrahierte Bilder (nicht im Repo)
+│   ├── bm25/                     # BM25-Indizes (nicht im Repo)
+│   └── registry.db               # SQLite (nicht im Repo)
 │
 ├── eval/
-│   ├── questions.yaml            # Eval-Set mit erwarteten Antworten
-│   └── run_eval.py
+│   ├── questions*.yaml           # Fragensets: Basis, Attachments, Kannegiesser
+│   ├── run_eval.py
+│   ├── report*.md                # aktuelle Ergebnisse (report.md: 20/20)
+│   └── archive/                  # überholte Zwischenstände
+│
+├── docs/
+│   ├── adr/                      # Architecture Decision Records
+│   ├── learnings.md              # Erkenntnisse & Stolpersteine aus dem Aufbau
+│   ├── technical_specification.md
+│   └── demo-script.md
 │
 ├── tests/
 │   ├── conftest.py
-│   ├── unit/
-│   │   ├── test_chunker.py
-│   │   ├── test_menu_path_extractor.py
-│   │   ├── test_safety_detector.py
-│   │   └── test_machine_resolver.py
+│   ├── unit/                     # ein test_*.py pro Modul
 │   ├── integration/              # benötigen laufendes Qdrant
-│   │   └── test_ingest_pipeline.py
 │   └── fixtures/
-│       ├── sample_pages/         # 2-3 Seiten PDF zum Testen
-│       └── expected_chunks.json
 │
 └── docker-compose.yml            # nur Qdrant für lokale Entwicklung
 ```
