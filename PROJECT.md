@@ -34,9 +34,9 @@ Genaues Datenmodell und Interfaces siehe `ARCHITECTURE.md`. Kurz:
 |------------------|-------------------------------|--------------------------------|
 | Vektor-DB        | Qdrant (Docker)               | `VectorStore`                  |
 | Parser           | Docling                       | `DocumentParser`               |
-| LLM              | Ollama (`qwen2.5:3b`)         | `LLMProvider`                  |
-| Vision-LLM       | Ollama (`moondream2`)         | `VisionProvider`               |
-| Embeddings       | sentence-transformers (`paraphrase-multilingual-MiniLM-L12-v2`) | `EmbeddingProvider` |
+| LLM              | Anthropic (`claude-sonnet-4-6`); Fallback: Ollama (`qwen2.5:3b`) — s. ADR-006 | `LLMProvider` |
+| Vision-LLM       | Anthropic (Claude Haiku: Bildbeschreibung, Menüpfade); Fallback: Ollama (`moondream2`) | `VisionProvider` |
+| Embeddings       | sentence-transformers (`intfloat/multilingual-e5-large`) | `EmbeddingProvider` |
 | Bild-Storage     | Lokales Dateisystem           | `BlobStore`                    |
 | Web-UI           | Streamlit                     | —                              |
 | Sprache          | Python ≥ 3.11                 | —                              |
@@ -48,10 +48,10 @@ Genaues Datenmodell und Interfaces siehe `ARCHITECTURE.md`. Kurz:
 On-Prem-Migration ist später ein Adapter-Wechsel, kein Rewrite — genau dafür
 gibt es die Interfaces.
 
-**Migrations-Pfad zu Anthropic API / Voyage AI:** Bei Bedarf reicht es,
-`OllamaLLMProvider` durch `AnthropicLLMProvider` und
-`SentenceTransformerEmbeddingProvider` durch `VoyageEmbeddingProvider`
-auszutauschen — keine Änderung am restlichen Code.
+**Migrations-Pfad (LLM bereits gegangen, s. ADR-006):** Der Wechsel
+Ollama → Anthropic erfolgte per `llm_factory` über `LLM_PROVIDER` in `.env` —
+ohne Änderung am restlichen Code. Für Embeddings bleibt
+`VoyageEmbeddingProvider` als Option hinter `EmbeddingProvider`.
 
 ## 4 · Zentrale Begriffe (Glossar)
 

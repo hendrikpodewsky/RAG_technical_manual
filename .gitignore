@@ -19,9 +19,13 @@ data/qdrant_storage/
 data/qdrant/
 data/bm25/
 data/debug_logs/
+*.db
 
 # Environment
 .env
+
+# Claude Code (maschinenspezifisch)
+.claude/settings.local.json
 
 # IDE
 .vscode/

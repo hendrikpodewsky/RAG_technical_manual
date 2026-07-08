@@ -4,8 +4,8 @@ Agentisches RAG-System für Maschinen-Bedienungsanleitungen.
 Nutzer fragen in natürlicher Sprache; das System antwortet mit Text und Originalbildern
 aus dem maschinenspezifischen Wissensspeicher.
 
-**Stack:** Python ≥ 3.11 · Ollama (qwen2.5:3b / moondream2) · sentence-transformers ·
-Qdrant · Docling · Streamlit · SQLite
+**Stack:** Python ≥ 3.11 · Anthropic Claude (LLM + Vision; Ollama als lokaler Fallback) ·
+sentence-transformers (`multilingual-e5-large`) · Qdrant · Docling · Streamlit · SQLite
 
 ---
 
@@ -45,10 +45,11 @@ zugeordnet und bei einer entsprechenden Anfrage automatisch mit ausgegeben.
 | Tool | Version | Wozu |
 |------|---------|------|
 | [uv](https://docs.astral.sh/uv/) | ≥ 0.4 | Dependency-Management |
-| [Ollama](https://ollama.com/) | ≥ 0.3 | LLM & Vision lokal |
+| Anthropic API-Key | — | Default für LLM & Vision (`ANTHROPIC_API_KEY` in `.env`) |
+| [Ollama](https://ollama.com/) (optional) | ≥ 0.3 | Lokaler Fallback ohne API-Key (`LLM_PROVIDER=ollama`, s. ADR-006) |
 | Docker (optional) | — | Qdrant persistent; ohne Docker läuft Qdrant im Arbeitsspeicher |
 
-Modelle einmalig herunterladen:
+Nur für den Ollama-Fallback — Modelle einmalig herunterladen:
 
 ```bash
 ollama pull qwen2.5:3b
@@ -63,7 +64,8 @@ ollama pull moondream2
 # 1. Dependencies installieren
 uv sync
 
-# 2. Umgebungsvariablen anlegen (Defaults funktionieren ohne Änderungen)
+# 2. Umgebungsvariablen anlegen — ANTHROPIC_API_KEY eintragen
+#    (oder LLM_PROVIDER=ollama für den rein lokalen Fallback)
 cp .env.example .env
 
 # 3. Qdrant starten (optional — fällt sonst auf In-Memory-Modus zurück)
@@ -74,7 +76,8 @@ uv run python -m wissenssystem.cli.seed_registry \
     --db data/registry.db \
     --yaml data/machines.yaml
 
-# 5. PDF ingestieren
+# 5. PDF ingestieren (Handbuch-PDFs sind nicht im Repo enthalten —
+#    eigenes PDF unter data/sources/ ablegen)
 uv run python -m wissenssystem.cli.ingest data/sources/ui800.pdf \
     --namespace cfg__bosch__ui800__nf87-02__de \
     --db data/registry.db
@@ -117,6 +120,12 @@ Antworttexten.
 
 Ziel-Score gemäß PoC-Erfolgskriterium: ≥ 80 %.
 
+Weitere Fragensets: `eval/questions_attachments.yaml` (Tabellen-/Bild-Anhänge),
+`eval/questions_kannegiesser.yaml` (zweite Maschine). Aktueller Stand:
+[`eval/report.md`](eval/report.md) (20/20) und
+[`eval/report_attachments.md`](eval/report_attachments.md) (5/5) —
+überholte Zwischenstände liegen in `eval/archive/`.
+
 ---
 
 ## Tests
@@ -135,29 +144,48 @@ uv run ruff check --fix .
 
 ---
 
+## Debugging
+
+```bash
+# Eine Query durch alle Pipeline-Stufen verfolgen
+# (Intent → Machine-Resolution → Retrieval → Rerank → Antwort)
+uv run python debug_query.py "Was bedeutet eine rote Status-LED?"
+
+# Indexierte Chunks eines Namespace inspizieren (Filter, Suche, Statistiken)
+uv run python -m wissenssystem.cli.inspect --namespace cfg__bosch__ui800__nf87-02__de --stats
+```
+
+---
+
 ## Projektstruktur
 
 ```
 src/wissenssystem/
 ├── agent/          # IntentClassifier, MachineResolver, AnswerGenerator, Orchestrator
-├── cli/            # ingest, seed_registry
+├── cli/            # ingest, inspect, seed_registry
 ├── domain/         # Pydantic-Modelle (immutable)
-├── ingestion/      # Pipeline, Chunker, SafetyDetector, MenuPathExtractor, ImageDescriber
+├── ingestion/      # Pipeline, Chunker, SafetyDetector, MenuPathExtractor, ImageDescriber, HyDE
 ├── interfaces/     # Protocol-Definitionen (kein konkreter Code)
-├── providers/      # Ollama, SentenceTransformer, Qdrant, LocalBlobStore, Docling
+├── providers/      # Anthropic (Claude LLM/Vision), Ollama, Docling, Claude-Vision-Parser,
+│                   # SentenceTransformer, Qdrant, LocalBlobStore + Factories
 ├── registry/       # MachineRegistry (SQLite, kein ORM)
-├── retrieval/      # HybridSearch, MenuPathSearch, Reranker
+├── retrieval/      # HybridSearch (Dense + BM25 + RRF), MenuPathSearch, Reranker
 └── ui/             # Streamlit-App
 
 prompts/            # Alle LLM-Prompts als Markdown-Dateien
-eval/               # questions.yaml + run_eval.py
+eval/               # Fragensets + run_eval.py; aktuelle Reports, archive/ für Altstände
 data/               # machines.yaml, registry.db, blobs/, sources/
-docs/adr/           # Architecture Decision Records
+docs/               # learnings.md, technical_specification.md, demo-script.md, adr/
+debug_query.py      # Trace-Tool: eine Query durch alle Pipeline-Stufen
 ```
 
 Fachliche Setzungen und Nicht-Ziele: [`PROJECT.md`](PROJECT.md)
 Technische Architektur und Datenmodell: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 Aufgaben und Abnahmekriterien: [`TASKS.md`](TASKS.md)
+Erkenntnisse & Stolpersteine aus dem Aufbau: [`docs/learnings.md`](docs/learnings.md)
+Technische Spezifikation: [`docs/technical_specification.md`](docs/technical_specification.md)
+Demo-Drehbuch: [`docs/demo-script.md`](docs/demo-script.md)
+Architektur-Entscheidungen: [`docs/adr/`](docs/adr/)
 
 ---
 

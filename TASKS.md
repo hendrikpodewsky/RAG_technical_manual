@@ -7,11 +7,15 @@
 > - Vor jeder Phase einmal `PROJECT.md` und `ARCHITECTURE.md` quer lesen.
 > - Jede Aufgabe = mindestens ein Git-Commit mit aussagekräftiger Message.
 
+> **Status: Alle Phasen abgeschlossen.** Der PoC ist fertig — Eval 20/20
+> ([`eval/report.md`](eval/report.md)) bzw. 5/5 auf dem Attachment-Set.
+> Die ✅-Marker wurden nachträglich vervollständigt.
+
 ---
 
 ## Phase 0 · Setup (Tag 1)
 
-### Task 0.1 — Projekt-Skelett anlegen
+### ✅ Task 0.1 — Projekt-Skelett anlegen
 - **Eingabe:** Verzeichnisstruktur aus `ARCHITECTURE.md` §1.
 - **Ausgabe:** Leeres aber komplettes Verzeichnis, `pyproject.toml` mit
   Dependencies (anthropic, voyageai, qdrant-client, docling, streamlit,
@@ -20,14 +24,14 @@
 - **Abnahme:** `uv sync` läuft fehlerfrei durch; `ruff check .` ist clean.
 - **Tests:** keine.
 
-### Task 0.2 — Docker-Compose für Qdrant
+### ✅ Task 0.2 — Docker-Compose für Qdrant
 - **Eingabe:** —
 - **Ausgabe:** `docker-compose.yml` mit Qdrant-Service (Port 6333), Volume
   für Persistenz unter `./data/qdrant_storage`.
 - **Abnahme:** `docker compose up -d qdrant` startet; `curl http://localhost:6333`
   antwortet mit Qdrant-Info.
 
-### Task 0.3 — Settings & Logging
+### ✅ Task 0.3 — Settings & Logging
 - **Eingabe:** `ARCHITECTURE.md` §7, §8.
 - **Ausgabe:** `src/wissenssystem/config.py` mit `Settings`-Klasse;
   `src/wissenssystem/logging_setup.py` mit `structlog`-Konfiguration.
@@ -38,7 +42,7 @@
 
 ## Phase 1 · Domain & Interfaces (Tag 1–2)
 
-### Task 1.1 — Domain-Klassen
+### ✅ Task 1.1 — Domain-Klassen
 - **Eingabe:** `ARCHITECTURE.md` §2.
 - **Ausgabe:** Alle Pydantic-Modelle in `src/wissenssystem/domain/`.
 - **Abnahme:** Modelle sind immutable (`model_config = ConfigDict(frozen=True)`),
@@ -46,14 +50,14 @@
 - **Tests:** `tests/unit/test_domain.py` — Konstruktion, Validation,
   Serialisierung.
 
-### Task 1.2 — Interface-Protocols
+### ✅ Task 1.2 — Interface-Protocols
 - **Eingabe:** `ARCHITECTURE.md` §3.
 - **Ausgabe:** Alle Protocols in `src/wissenssystem/interfaces/`.
   `runtime_checkable` wo sinnvoll. Vollständige Type-Hints.
 - **Abnahme:** `mypy src/wissenssystem/interfaces/` ist clean.
 - **Tests:** keine (reine Typdefinitionen).
 
-### Task 1.3 — Namespace-Naming-Utility
+### ✅ Task 1.3 — Namespace-Naming-Utility
 - **Eingabe:** `PROJECT.md` §4 (Namespace-Schreibweise).
 - **Ausgabe:** `src/wissenssystem/domain/namespace.py` mit Funktion
   `build_namespace(manufacturer, model_family, sw_version, country) -> str`
@@ -66,7 +70,7 @@
 
 ## Phase 2 · Provider-Adapter (Tag 2–4)
 
-### Task 2.1 — Ollama-Provider (LLM + Vision)
+### ✅ Task 2.1 — Ollama-Provider (LLM + Vision)
 - **Eingabe:** Interfaces, `ARCHITECTURE.md` §7.
 - **Ausgabe:** `providers/ollama_provider.py` mit Klassen
   `OllamaLLMProvider` und `OllamaVisionProvider`. Retry mit
@@ -78,7 +82,7 @@
 - **STOPP-und-frage:** Wenn `qwen2.5:3b` oder `moondream2` nicht in Ollama
   verfügbar sind: Nutzer fragen, welche Modelle stattdessen.
 
-### Task 2.2 — SentenceTransformer-Embeddings
+### ✅ Task 2.2 — SentenceTransformer-Embeddings
 - **Eingabe:** Interface, `sentence-transformers`.
 - **Ausgabe:** `providers/sentence_transformer_embeddings.py`. Modell wird
   beim Start einmalig geladen. Batch-Embedding bis 128 Texte/Call.
@@ -86,7 +90,7 @@
   wird gegen Settings geprüft.
 - **Tests:** Unit-Test mit synthetischen Texten (kein Mock nötig — läuft lokal).
 
-### Task 2.3 — Qdrant-VectorStore
+### ✅ Task 2.3 — Qdrant-VectorStore
 - **Eingabe:** Interface, Qdrant-SDK.
 - **Ausgabe:** `providers/qdrant_store.py`. Methoden:
   `create_namespace`, `upsert`, `search`, `delete_namespace`,
@@ -97,7 +101,7 @@
 - **Tests:** `tests/integration/test_qdrant_store.py`. Markiert als
   `@pytest.mark.integration`, in CI skippen.
 
-### Task 2.4 — LocalBlobStore
+### ✅ Task 2.4 — LocalBlobStore
 - **Eingabe:** Interface.
 - **Ausgabe:** `providers/local_blob_store.py`. Speichert unter
   `data/blobs/<sha256>.<ext>`, gibt `image_id` = sha256 zurück.
@@ -106,7 +110,7 @@
   gleiche ID).
 - **Tests:** Unit-Test mit `tmp_path`.
 
-### Task 2.5 — Docling-Parser-Adapter
+### ✅ Task 2.5 — Docling-Parser-Adapter
 - **Eingabe:** Interface, Docling-SDK.
 - **Ausgabe:** `providers/docling_parser.py`. Gibt strukturiertes Ergebnis
   zurück: Liste von `ParsedBlock` (Text/Tabelle/Bild/Überschrift) mit
@@ -146,7 +150,7 @@
   Snapshot-Test gegen `expected_chunks.json`.
 - **Tests:** Unit-Test mit synthetischen Strukturen + Snapshot-Test.
 
-### Task 3.3 — MenuPathExtractor
+### ✅ Task 3.3 — MenuPathExtractor
 - **Eingabe:** `ARCHITECTURE.md` §5.
 - **Ausgabe:** `ingestion/menu_path_extractor.py`. Erkennt den
   Service-Übersichts-Block (Kapitel 8 in UI 800), extrahiert die
@@ -158,7 +162,7 @@
   erkannt.
 - **Tests:** Snapshot-Test gegen `expected_menu_paths.json`.
 
-### Task 3.4 — ImageDescriber
+### ✅ Task 3.4 — ImageDescriber
 - **Eingabe:** Interfaces, `prompts/image_description.md`.
 - **Ausgabe:** `ingestion/image_describer.py`. Erzeugt für jedes Bild
   eine Beschreibung mit Vision-Provider. Eingaben in Prompt:
@@ -173,7 +177,7 @@
 - **STOPP-und-frage:** Wenn Beschreibungen wiederholt zu generisch sind:
   Prompt-Iteration mit Nutzer.
 
-### Task 3.5 — Pipeline-Orchestrierung
+### ✅ Task 3.5 — Pipeline-Orchestrierung
 - **Eingabe:** alle vorherigen Komponenten.
 - **Ausgabe:** `ingestion/pipeline.py` mit Klasse `IngestionPipeline`,
   Methode `ingest(pdf_path: Path, namespace: str) -> IngestReport`.
@@ -189,7 +193,7 @@
 
 ## Phase 4 · Maschinen-Registry (Tag 6–7)
 
-### Task 4.1 — Registry-Schema
+### ✅ Task 4.1 — Registry-Schema
 - **Eingabe:** `ARCHITECTURE.md` §1 (Registry-Modul).
 - **Ausgabe:** `registry/schema.sql` mit Tabellen `machines`,
   `configurations`, `menu_paths`. `registry/machine_registry.py` mit
@@ -197,7 +201,7 @@
 - **Abnahme:** Schema-Migration läuft idempotent (CREATE IF NOT EXISTS).
 - **Tests:** Unit-Test mit `:memory:`-SQLite — Insert, Query, Alias-Suche.
 
-### Task 4.2 — Registry-Seed
+### ✅ Task 4.2 — Registry-Seed
 - **Eingabe:** —
 - **Ausgabe:** `cli/seed_registry.py`, das die PoC-Maschinen aus einer
   YAML-Datei (`data/machines.yaml`) lädt. Format pro Maschine: name,
@@ -210,7 +214,7 @@
 
 ## Phase 5 · Retrieval (Tag 7–9)
 
-### Task 5.1 — HybridSearch
+### ✅ Task 5.1 — HybridSearch
 - **Eingabe:** `ARCHITECTURE.md` §6.
 - **Ausgabe:** `retrieval/hybrid_search.py`. Führt zwei parallele Suchen
   im Namespace (Text-Chunks, Bildbeschreibungen). Vereinigt Ergebnisse,
@@ -219,7 +223,7 @@
   auch den umgebenden Text.
 - **Tests:** Integration-Test mit ingestiertem UI 800.
 
-### Task 5.2 — MenuPathSearch
+### ✅ Task 5.2 — MenuPathSearch
 - **Eingabe:** Menüpfad-Index aus Phase 3.
 - **Ausgabe:** `retrieval/menu_path_search.py`. Bei Frage „wo stelle ich
   X ein" gibt Top-3 Pfade zurück, jeweils mit Breadcrumb-String und
@@ -227,7 +231,7 @@
 - **Abnahme:** Frage „wo stelle ich den geräuscharmen Betrieb ein" liefert
   den korrekten Pfad als Top-1.
 
-### Task 5.3 — Reranker
+### ✅ Task 5.3 — Reranker
 - **Eingabe:** Hybrid-Search-Ergebnisse.
 - **Ausgabe:** `retrieval/reranker.py`. LLM-basiert (Sonnet 4.5 mit
   strukturiertem JSON-Output: Liste der Top-K-Chunks neu sortiert).
@@ -238,7 +242,7 @@
 
 ## Phase 6 · Agent (Tag 9–11)
 
-### Task 6.1 — IntentClassifier
+### ✅ Task 6.1 — IntentClassifier
 - **Eingabe:** `prompts/intent_classification.md` (zu erstellen).
 - **Ausgabe:** `agent/intent_classifier.py`. Strukturierter Output:
   `{intent: Enum, confidence: float, reasoning: str}`. Intents:
@@ -247,7 +251,7 @@
 - **Abnahme:** 10 Beispielfragen werden korrekt klassifiziert.
 - **Tests:** Eval-Style-Test mit Fixture-Fragen.
 
-### Task 6.2 — MachineResolver
+### ✅ Task 6.2 — MachineResolver
 - **Eingabe:** Registry, optionaler User-Kontext.
 - **Ausgabe:** `agent/machine_resolver.py`. Drei Stufen:
   1. Exakter Match auf Name/Alias in der Frage.
@@ -257,7 +261,7 @@
 - **Abnahme:** „WP Halle 2" matcht Maschine via Alias. „Die Pumpe" mit
   mehreren Kandidaten ergibt `Ambiguous`.
 
-### Task 6.3 — AnswerGenerator
+### ✅ Task 6.3 — AnswerGenerator
 - **Eingabe:** `prompts/answer_generation.md`. Strikte Anweisungen:
   - Antworte ausschließlich aus den Quellen.
   - Sicherheitshinweise wörtlich, nicht paraphrasiert.
@@ -269,7 +273,7 @@
 - **Abnahme:** Bei Frage zur Verbrühungsgefahr wird der originale
   Warnhinweis wörtlich enthalten.
 
-### Task 6.4 — Orchestrator
+### ✅ Task 6.4 — Orchestrator
 - **Eingabe:** alle Agent-Komponenten.
 - **Ausgabe:** `agent/orchestrator.py` mit `answer(question: str,
   context: dict) -> AnswerResult`. Implementiert zweistufigen Ablauf
@@ -280,7 +284,7 @@
 
 ## Phase 7 · UI (Tag 11–12)
 
-### Task 7.1 — Streamlit-App
+### ✅ Task 7.1 — Streamlit-App
 - **Eingabe:** Orchestrator.
 - **Ausgabe:** `ui/streamlit_app.py`. Features:
   - Eingabefeld für Fragen.
